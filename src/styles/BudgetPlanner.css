@@ -120,3 +120,36 @@
 .btn-download:hover {
   background: #1a2e25;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .budget-container {
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .budget-box {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .budget-box h1 {
+    font-size: 22px;
+  }
+
+  .input-group input {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .btn-primary,
+  .btn-back,
+  .btn-download {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .plan-content {
+    padding: 16px;
+    font-size: 13px;
+  }
+}

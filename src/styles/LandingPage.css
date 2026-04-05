@@ -238,3 +238,84 @@
   padding: 20px;
   font-size: 14px;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-logo {
+    font-size: 18px;
+  }
+
+  .nav-btns {
+    gap: 6px;
+  }
+
+  .nav-login,
+  .nav-signup {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+
+  .landing-content {
+    padding: 120px 20px 60px 20px;
+  }
+
+  .landing-content h1 {
+    font-size: 36px;
+  }
+
+  .tagline {
+    font-size: 18px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 12px 28px;
+    font-size: 15px;
+    margin: 6px;
+  }
+
+  .features-section {
+    padding: 50px 20px;
+  }
+
+  .features-section h2 {
+    font-size: 28px;
+  }
+
+  .features-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .feature-item {
+    padding: 20px;
+  }
+
+  .about-section {
+    padding: 50px 20px;
+  }
+
+  .about-section h2 {
+    font-size: 28px;
+  }
+
+  .about-stats {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .stat h3 {
+    font-size: 36px;
+  }
+}

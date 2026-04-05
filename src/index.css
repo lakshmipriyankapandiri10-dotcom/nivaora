@@ -11,3 +11,53 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .landing-content h1 {
+    font-size: 40px;
+  }
+
+  .features-list {
+    grid-template-columns: 1fr;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .plan-box {
+    width: 90%;
+  }
+
+  .auth-box {
+    width: 90%;
+  }
+
+  .chat-window {
+    width: 90%;
+    right: 5%;
+  }
+
+  .about-stats {
+    gap: 30px;
+  }
+}

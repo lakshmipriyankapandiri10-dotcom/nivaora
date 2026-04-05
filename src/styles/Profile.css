@@ -134,3 +134,36 @@
   background: #2d4a3e;
   color: white;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .profile-box {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .profile-box h1 {
+    font-size: 22px;
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+  }
+
+  .form-group input {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .btn-primary,
+  .btn-back {
+    font-size: 14px;
+    padding: 12px;
+  }
+}

@@ -170,3 +170,42 @@
   background: #ddd;
   color: #333;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .saved-container {
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .saved-box {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .saved-box h1 {
+    font-size: 22px;
+  }
+
+  .designs-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .design-card {
+    padding: 16px;
+  }
+
+  .btn-primary,
+  .btn-back {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .search-bar {
+    padding: 8px 12px;
+  }
+
+  .search-input {
+    font-size: 14px;
+  }
+}

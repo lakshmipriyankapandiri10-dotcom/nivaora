@@ -101,3 +101,32 @@
 .btn-download:hover {
   background: #1a2e25;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .suggestions-container {
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .suggestions-box {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .suggestions-box h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .suggestions-content {
+    padding: 16px;
+    font-size: 13px;
+  }
+
+  .btn-primary,
+  .btn-image,
+  .btn-download {
+    font-size: 14px;
+    padding: 12px;
+  }
+}

@@ -160,3 +160,55 @@
   background: #fff0eb;
   font-weight: bold;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .photo-container {
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .photo-box {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .photo-box h1 {
+    font-size: 22px;
+  }
+
+  .upload-area {
+    padding: 24px 16px;
+  }
+
+  .upload-placeholder span {
+    font-size: 36px;
+  }
+
+  .upload-placeholder p {
+    font-size: 14px;
+  }
+
+  .options-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .option-btn {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .btn-primary,
+  .btn-back {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .suggestions-content {
+    padding: 16px;
+  }
+
+  .suggestions-content p {
+    font-size: 13px;
+  }
+}

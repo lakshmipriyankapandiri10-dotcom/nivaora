@@ -96,3 +96,42 @@
 .btn-primary:hover {
   background: #a85d3d;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .plan-container {
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .plan-box {
+    width: 100%;
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .plan-box h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .options-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .option-btn {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+
+  .input-group input {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .btn-primary {
+    font-size: 14px;
+    padding: 12px;
+    width: 100%;
+  }
+}

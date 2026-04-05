@@ -75,3 +75,25 @@
   font-size: 13px;
   margin-bottom: 10px;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .auth-box {
+    width: 90vw;
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .auth-box h2 {
+    font-size: 22px;
+  }
+
+  .auth-box input {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .btn-primary {
+    font-size: 15px;
+    padding: 12px;
+  }
+}

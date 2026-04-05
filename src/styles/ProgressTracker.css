@@ -151,3 +151,59 @@
   background: #2d4a3e;
   color: white;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .progress-container {
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .progress-box {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .progress-box h1 {
+    font-size: 22px;
+  }
+
+  .progress-summary {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .progress-circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .progress-percent {
+    font-size: 20px;
+  }
+
+  .progress-stats {
+    text-align: center;
+  }
+
+  .stage-item {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .stage-check {
+    font-size: 20px;
+  }
+
+  .stage-info h3 {
+    font-size: 14px;
+  }
+
+  .stage-info p {
+    font-size: 12px;
+  }
+
+  .btn-back {
+    font-size: 14px;
+    padding: 12px;
+  }
+}

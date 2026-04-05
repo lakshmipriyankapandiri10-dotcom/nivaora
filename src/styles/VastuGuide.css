@@ -131,3 +131,41 @@
 .btn-download:hover {
   background: #1a2e25;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .vastu-container {
+    padding: 16px;
+    align-items: flex-start;
+  }
+
+  .vastu-box {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .vastu-box h1 {
+    font-size: 22px;
+  }
+
+  .options-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .option-btn {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .btn-primary,
+  .btn-back,
+  .btn-download {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .tips-content {
+    padding: 16px;
+    font-size: 13px;
+  }
+}

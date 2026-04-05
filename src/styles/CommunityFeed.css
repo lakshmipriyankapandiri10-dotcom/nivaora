@@ -334,3 +334,66 @@
 .btn-back:hover {
   background: #2d5a47;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .community-container {
+    padding: 16px 12px;
+  }
+
+  .community-box {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .community-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .community-header h1 {
+    font-size: 22px;
+  }
+
+  .btn-share-toggle {
+    width: 100%;
+    text-align: center;
+  }
+
+  .share-form {
+    padding: 16px;
+  }
+
+  .share-selects {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .share-select {
+    width: 100%;
+  }
+
+  .post-card {
+    padding: 14px;
+  }
+
+  .post-title {
+    font-size: 14px;
+  }
+
+  .post-desc {
+    font-size: 13px;
+  }
+
+  .btn-like,
+  .btn-comment {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .btn-primary,
+  .btn-back {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
