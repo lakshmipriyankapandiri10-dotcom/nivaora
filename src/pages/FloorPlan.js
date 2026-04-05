@@ -26,17 +26,12 @@ function FloorPlan() {
     'Study Room': '#b2dfdb',
   };
 
-  useEffect(() => {
-    drawCanvas();
-  }, [rooms]);
-
   const drawCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Grid
     ctx.strokeStyle = '#e0e0e0';
     ctx.lineWidth = 0.5;
     for (let x = 0; x < canvas.width; x += 20) {
@@ -52,7 +47,6 @@ function FloorPlan() {
       ctx.stroke();
     }
 
-    // Rooms
     rooms.forEach((room, i) => {
       ctx.fillStyle = roomColors[room.type] || '#f5f5f5';
       ctx.fillRect(room.x, room.y, room.width, room.height);
@@ -68,6 +62,10 @@ function FloorPlan() {
     });
   };
 
+  useEffect(() => {
+    drawCanvas();
+  }, [rooms]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const getPos = (e, canvas) => {
     const rect = canvas.getBoundingClientRect();
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -82,7 +80,6 @@ function FloorPlan() {
     const canvas = canvasRef.current;
     const pos = getPos(e, canvas);
 
-    // Check if clicking existing room
     const clickedIndex = rooms.findIndex(r =>
       pos.x >= r.x && pos.x <= r.x + r.width &&
       pos.y >= r.y && pos.y <= r.y + r.height
@@ -246,5 +243,4 @@ function FloorPlan() {
     </div>
   );
 }
-
 export default FloorPlan;
