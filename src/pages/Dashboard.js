@@ -23,6 +23,7 @@ const translations = {
       { icon: '📊', title: 'Progress Tracker', desc: 'Track your home building journey' },
       { icon: '🎨', title: 'Wall Color', desc: 'Visualize wall colors before painting' },
       { icon: '🗺️', title: 'Floor Plan', desc: 'Draw your home layout' },
+      { icon: '🌐', title: 'Community Feed', desc: 'Share and explore design ideas' },
     ]
   },
   te: {
@@ -43,6 +44,7 @@ const translations = {
       { icon: '📊', title: 'ప్రోగ్రెస్ ట్రాకర్', desc: 'మీ ఇల్లు నిర్మాణ ప్రయాణాన్ని ట్రాక్ చేయండి' },
       { icon: '🎨', title: 'వాల్ కలర్', desc: 'పెయింట్ చేయడానికి ముందు రంగు చూడండి' },
       { icon: '🗺️', title: 'ఫ్లోర్ ప్లాన్', desc: 'మీ ఇంటి లేఅవుట్ గీయండి' },
+      { icon: '🌐', title: 'కమ్యూనిటీ ఫీడ్', desc: 'డిజైన్ ఆలోచనలు షేర్ చేయండి' },
     ]
   },
   hi: {
@@ -63,6 +65,7 @@ const translations = {
       { icon: '📊', title: 'प्रगति ट्रैकर', desc: 'अपनी घर निर्माण यात्रा को ट्रैक करें' },
       { icon: '🎨', title: 'वॉल कलर', desc: 'पेंट करने से पहले रंग देखें' },
       { icon: '🗺️', title: 'फ्लोर प्लान', desc: 'अपने घर का लेआउट बनाएं' },
+      { icon: '🌐', title: 'कम्युनिटी फीड', desc: 'डिज़ाइन आइडियाज़ शेयर करें' },
     ]
   }
 };
@@ -98,7 +101,7 @@ function Dashboard() {
     }
   }, [darkMode]);
 
-  const paths = ['/plan', '/decor', '/waste', '/budget', '/vastu', '/saved', '/photo', '/progress', '/wallcolor', '/floorplan'];
+  const paths = ['/plan', '/decor', '/waste', '/budget', '/vastu', '/saved', '/photo', '/progress', '/wallcolor', '/floorplan', '/community'];
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -128,14 +131,15 @@ function Dashboard() {
               role: 'system',
               content: `You are Nivaora Assistant — a helpful chatbot for the Nivaora home design app.
               Nivaora has these features:
-              1. Plan My Home — answer 8 questions and get AI home design suggestions
-              2. Decor Ideas — select room and style and get AI decoration ideas with images
-              3. Waste to Decor — enter waste materials and get creative upcycling ideas
-              4. Budget Planner — enter budget and get detailed cost breakdown
-              5. Vastu Guide — select room and direction and get Vastu tips
-              6. Saved Designs — view saved designs
-              7. Wall Color — visualize wall colors before painting
-              8. Floor Plan — draw home layout and get AI suggestions
+              1. Plan My Home
+              2. Decor Ideas
+              3. Waste to Decor
+              4. Budget Planner
+              5. Vastu Guide
+              6. Saved Designs
+              7. Wall Color Visualizer
+              8. Floor Plan Drawer
+              9. Community Feed
               Answer questions about these features or general home design. Be friendly and helpful.`
             },
             ...updatedMessages

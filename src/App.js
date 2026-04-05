@@ -15,6 +15,7 @@ import PhotoAnalyze from './pages/PhotoAnalyze';
 import ProgressTracker from './pages/ProgressTracker';
 import Wallcolor from './pages/Wallcolor';
 import FloorPlan from './pages/FloorPlan';
+import CommunityFeed from './pages/CommunityFeed';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/progress" element={<ProgressTracker />} />
         <Route path="/wallcolor" element={<Wallcolor />} />
         <Route path="/floorplan" element={<FloorPlan />} />
+        <Route path="/community" element={<CommunityFeed />} />
       </Routes>
     </Router>
   );
