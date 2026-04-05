@@ -49,7 +49,6 @@ function Badges() {
         <h1>Achievement Badges 🏆</h1>
         <p>Explore Nivaora and unlock all badges!</p>
 
-        {/* Progress */}
         <div className="badges-progress">
           <div className="badges-progress-info">
             <span>🏆 {earnedCount} / {totalCount} Badges Earned</span>
@@ -62,7 +61,6 @@ function Badges() {
 
         {loading && <p className="loading">Loading badges...</p>}
 
-        {/* Badges Grid */}
         <div className="badges-grid">
           {ALL_BADGES.map((badge, i) => {
             const earned = earnedBadges.includes(badge.id);
