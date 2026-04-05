@@ -1,0 +1,98 @@
+.plan-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f0eb 0%, #e8f5e9 100%);
+}
+
+.plan-box {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  width: 500px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.progress {
+  height: 8px;
+  background: #c2714f;
+  border-radius: 10px;
+  transition: width 0.3s;
+}
+
+.step-count {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.plan-box h2 {
+  color: #2d4a3e;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.option-btn {
+  background: #f5f0eb;
+  border: 2px solid transparent;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #2d4a3e;
+  transition: all 0.3s;
+}
+
+.option-btn:hover {
+  border-color: #c2714f;
+  background: white;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-group input {
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #c2714f;
+}
+
+.btn-primary {
+  background: #c2714f;
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover {
+  background: #a85d3d;
+}
