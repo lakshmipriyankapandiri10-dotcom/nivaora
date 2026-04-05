@@ -22,6 +22,7 @@ const translations = {
       { icon: '📸', title: 'Photo Analyze', desc: 'Upload room photo for AI suggestions' },
       { icon: '📊', title: 'Progress Tracker', desc: 'Track your home building journey' },
       { icon: '🎨', title: 'Wall Color', desc: 'Visualize wall colors before painting' },
+      { icon: '🗺️', title: 'Floor Plan', desc: 'Draw your home layout' },
     ]
   },
   te: {
@@ -41,6 +42,7 @@ const translations = {
       { icon: '📸', title: 'ఫోటో విశ్లేషణ', desc: 'AI సూచనల కోసం గది ఫోటో అప్‌లోడ్ చేయండి' },
       { icon: '📊', title: 'ప్రోగ్రెస్ ట్రాకర్', desc: 'మీ ఇల్లు నిర్మాణ ప్రయాణాన్ని ట్రాక్ చేయండి' },
       { icon: '🎨', title: 'వాల్ కలర్', desc: 'పెయింట్ చేయడానికి ముందు రంగు చూడండి' },
+      { icon: '🗺️', title: 'ఫ్లోర్ ప్లాన్', desc: 'మీ ఇంటి లేఅవుట్ గీయండి' },
     ]
   },
   hi: {
@@ -60,6 +62,7 @@ const translations = {
       { icon: '📸', title: 'फोटो विश्लेषण', desc: 'AI सुझावों के लिए कमरे की फोटो अपलोड करें' },
       { icon: '📊', title: 'प्रगति ट्रैकर', desc: 'अपनी घर निर्माण यात्रा को ट्रैक करें' },
       { icon: '🎨', title: 'वॉल कलर', desc: 'पेंट करने से पहले रंग देखें' },
+      { icon: '🗺️', title: 'फ्लोर प्लान', desc: 'अपने घर का लेआउट बनाएं' },
     ]
   }
 };
@@ -95,7 +98,7 @@ function Dashboard() {
     }
   }, [darkMode]);
 
-  const paths = ['/plan', '/decor', '/waste', '/budget', '/vastu', '/saved', '/photo', '/progress', '/wallcolor'];
+  const paths = ['/plan', '/decor', '/waste', '/budget', '/vastu', '/saved', '/photo', '/progress', '/wallcolor', '/floorplan'];
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -132,6 +135,7 @@ function Dashboard() {
               5. Vastu Guide — select room and direction and get Vastu tips
               6. Saved Designs — view saved designs
               7. Wall Color — visualize wall colors before painting
+              8. Floor Plan — draw home layout and get AI suggestions
               Answer questions about these features or general home design. Be friendly and helpful.`
             },
             ...updatedMessages
