@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/WasteToDecor.css';
+import { earnBadge } from '../utils/badgeHelper';
 
 function WasteToDecor() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function WasteToDecor() {
 
   const getIdeas = async () => {
     setLoading(true);
+    await earnBadge('waste_warrior', 'Waste Warrior', '♻️');
     const prompt = `You are a creative upcycling expert. Give 5 creative decoration ideas using:
     Materials: ${materials}
     Room: ${room}

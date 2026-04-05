@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
 import '../styles/CommunityFeed.css';
+import { earnBadge } from '../utils/badgeHelper';
 
 function CommunityFeed() {
   const navigate = useNavigate();
@@ -72,6 +73,7 @@ function CommunityFeed() {
       room_type: roomType,
       style: selectedStyle,
     }]);
+    await earnBadge('community_star', 'Community Star', '🌐');
     setTitle('');
     setDescription('');
     setImageUrl('');

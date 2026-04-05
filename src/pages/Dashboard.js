@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
 import Notifications from './Notifications';
 import '../styles/Dashboard.css';
+import { earnBadge } from '../utils/badgeHelper';
 
 const translations = {
   en: {
@@ -92,6 +93,7 @@ function Dashboard() {
       const { data } = await supabase.auth.getUser();
       if (!data.user) { navigate('/login'); return; }
       setUserName(data.user.user_metadata.name || 'Friend');
+      await earnBadge('first_login', 'First Login', '🏅');
     };
     getUser();
   }, [navigate]);

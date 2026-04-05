@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Wallcolor.css';
+import { earnBadge } from '../utils/badgeHelper';
 
 function Wallcolor() {
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ function Wallcolor() {
     '#f0f4c3', '#ffffff', '#e0e0e0', '#795548',
     '#f5a623', '#e53935', '#2196f3', '#4caf50',
   ];
+
+  useEffect(() => {
+    earnBadge('color_picker', 'Color Picker', '🎨');
+  }, []);
 
   const getRoomEmoji = (room) => {
     const emojis = {
@@ -35,7 +40,6 @@ function Wallcolor() {
         <h1>Wall Color Visualizer 🎨</h1>
         <p>See how your wall colors look before painting!</p>
 
-        {/* Room Selector */}
         <div className="select-group">
           <h3>Select Room:</h3>
           <div className="options-grid">
@@ -51,7 +55,6 @@ function Wallcolor() {
           </div>
         </div>
 
-        {/* Color Pickers */}
         <div className="color-pickers-row">
           <div className="color-pick-group">
             <h3>🎨 Wall Color:</h3>
@@ -102,7 +105,6 @@ function Wallcolor() {
           </div>
         </div>
 
-        {/* Room Preview */}
         <div className="room-preview" style={{ background: wallColor }}>
           <div className="room-floor" />
           <div className="room-ceiling" style={{ background: accentColor }} />

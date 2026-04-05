@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/FloorPlan.css';
+import { earnBadge } from '../utils/badgeHelper';
 
 function FloorPlan() {
   const navigate = useNavigate();
@@ -66,6 +67,10 @@ function FloorPlan() {
     drawCanvas();
   }, [rooms]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    earnBadge('floor_planner', 'Floor Planner', '🗺️');
+  }, []);
+
   const getPos = (e, canvas) => {
     const rect = canvas.getBoundingClientRect();
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -79,17 +84,14 @@ function FloorPlan() {
   const handleMouseDown = (e) => {
     const canvas = canvasRef.current;
     const pos = getPos(e, canvas);
-
     const clickedIndex = rooms.findIndex(r =>
       pos.x >= r.x && pos.x <= r.x + r.width &&
       pos.y >= r.y && pos.y <= r.y + r.height
     );
-
     if (clickedIndex !== -1) {
       setSelectedRoom(clickedIndex);
       return;
     }
-
     setSelectedRoom(null);
     setDrawing(true);
     setStartPos(pos);
@@ -100,7 +102,6 @@ function FloorPlan() {
     const canvas = canvasRef.current;
     const pos = getPos(e, canvas);
     const ctx = canvas.getContext('2d');
-
     drawCanvas();
     ctx.fillStyle = roomColors[currentRoom] + '99';
     ctx.fillRect(startPos.x, startPos.y, pos.x - startPos.x, pos.y - startPos.y);
@@ -115,7 +116,6 @@ function FloorPlan() {
     const pos = getPos(e, canvas);
     const width = pos.x - startPos.x;
     const height = pos.y - startPos.y;
-
     if (Math.abs(width) > 20 && Math.abs(height) > 20) {
       setRooms([...rooms, {
         x: width > 0 ? startPos.x : pos.x,
@@ -152,7 +152,6 @@ function FloorPlan() {
     setAiLoading(true);
     const roomList = rooms.map(r => r.type).join(', ');
     const prompt = `I have a floor plan with these rooms: ${roomList}. Give me 5 specific interior design and vastu tips for this layout. Keep it concise and practical for Indian homes.`;
-
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -243,4 +242,5 @@ function FloorPlan() {
     </div>
   );
 }
+
 export default FloorPlan;

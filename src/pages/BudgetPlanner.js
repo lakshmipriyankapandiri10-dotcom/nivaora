@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/BudgetPlanner.css';
 import jsPDF from 'jspdf';
+import { earnBadge } from '../utils/badgeHelper';
 
 function BudgetPlanner() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function BudgetPlanner() {
 
   const getPlan = async () => {
     setLoading(true);
+    await earnBadge('budget_master', 'Budget Master', '💰');
     const prompt = `You are a home construction budget expert in India.
     Total Budget: ${budget} rupees
     Give a detailed budget breakdown for building and decorating a home in India including construction, interior, furniture, kitchen, bathroom, garden, electrical, plumbing and miscellaneous. Give exact amounts and money saving tips.`;

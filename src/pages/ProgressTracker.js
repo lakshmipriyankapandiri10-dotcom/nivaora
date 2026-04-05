@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ProgressTracker.css';
+import { earnBadge } from '../utils/badgeHelper';
 
 function ProgressTracker() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function ProgressTracker() {
   useEffect(() => {
     const saved = localStorage.getItem('nivaora_progress');
     if (saved) setStages(JSON.parse(saved));
+    earnBadge('progress_tracker', 'Progress Tracker', '📊');
   }, []);
 
   const toggleStage = (id) => {

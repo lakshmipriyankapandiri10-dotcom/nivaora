@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/PhotoAnalyze.css';
+import { earnBadge } from '../utils/badgeHelper';
 
 function PhotoAnalyze() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function PhotoAnalyze() {
 
   const analyzePhoto = async () => {
     setLoading(true);
+    await earnBadge('photo_pro', 'Photo Pro', '📸');
     const prompt = `You are an expert interior designer. Give detailed improvement suggestions for:
     Room Type: ${roomType}
     Preferred Style: ${style}

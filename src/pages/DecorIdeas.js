@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/DecorIdeas.css';
 import jsPDF from 'jspdf';
 import { supabase } from '../utils/supabase';
+import { earnBadge } from '../utils/badgeHelper';
 
 function DecorIdeas() {
   const navigate = useNavigate();
@@ -19,16 +20,17 @@ function DecorIdeas() {
   const rooms = ['Living Room', 'Bedroom', 'Kitchen', 'Bathroom', 'Balcony', 'Pooja Room'];
   const styles = ['Modern', 'Traditional', 'Minimalist', 'Bohemian', 'Royal'];
 
- const presetColors = [
-  '#f5a623', '#e53935', '#8bc34a', '#2196f3',
-  '#9c27b0', '#ffffff', '#795548', '#607d8b',
-  '#ffccbc', '#f8bbd0', '#e1bee7', '#bbdefb',
-  '#c8e6c9', '#fff9c4', '#ffe0b2', '#f0f4c3'
-];
+  const presetColors = [
+    '#f5a623', '#e53935', '#8bc34a', '#2196f3',
+    '#9c27b0', '#ffffff', '#795548', '#607d8b',
+    '#ffccbc', '#f8bbd0', '#e1bee7', '#bbdefb',
+    '#c8e6c9', '#fff9c4', '#ffe0b2', '#f0f4c3'
+  ];
 
   const getIdeas = async () => {
     setLoading(true);
     setSaved(false);
+    await earnBadge('decor_explorer', 'Decor Explorer', '🏠');
     const prompt = `You are an interior design expert. Give detailed decoration ideas for:
     Room: ${room}
     Style: ${style}
@@ -91,6 +93,7 @@ function DecorIdeas() {
       image_url: image || '',
       design_type: 'decor'
     }]);
+    await earnBadge('first_design', 'First Design', '🎨');
     setSaved(true);
   };
 
@@ -130,7 +133,6 @@ function DecorIdeas() {
           </div>
         </div>
 
-        {/* 🎨 Color Picker */}
         <div className="select-group">
           <h3>Pick Wall Color: 🎨</h3>
           <div className="color-picker-row">

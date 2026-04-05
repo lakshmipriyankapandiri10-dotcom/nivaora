@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/VastuGuide.css';
 import jsPDF from 'jspdf';
+import { earnBadge } from '../utils/badgeHelper';
 
 function VastuGuide() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function VastuGuide() {
 
   const getTips = async () => {
     setLoading(true);
+    await earnBadge('vastu_follower', 'Vastu Follower', '🕉️');
     const prompt = `You are a Vastu Shastra expert. Give detailed Vastu tips for:
     Room: ${room}
     House Facing: ${facing}
