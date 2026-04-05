@@ -16,6 +16,7 @@ import ProgressTracker from './pages/ProgressTracker';
 import Wallcolor from './pages/Wallcolor';
 import FloorPlan from './pages/FloorPlan';
 import CommunityFeed from './pages/CommunityFeed';
+import Badges from './pages/Badges';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/wallcolor" element={<Wallcolor />} />
         <Route path="/floorplan" element={<FloorPlan />} />
         <Route path="/community" element={<CommunityFeed />} />
+        <Route path="/badges" element={<Badges />} />
       </Routes>
     </Router>
   );

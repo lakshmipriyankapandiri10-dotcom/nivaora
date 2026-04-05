@@ -24,6 +24,7 @@ const translations = {
       { icon: '🎨', title: 'Wall Color', desc: 'Visualize wall colors before painting' },
       { icon: '🗺️', title: 'Floor Plan', desc: 'Draw your home layout' },
       { icon: '🌐', title: 'Community Feed', desc: 'Share and explore design ideas' },
+      { icon: '🏆', title: 'Achievements', desc: 'View your earned badges' },
     ]
   },
   te: {
@@ -45,6 +46,7 @@ const translations = {
       { icon: '🎨', title: 'వాల్ కలర్', desc: 'పెయింట్ చేయడానికి ముందు రంగు చూడండి' },
       { icon: '🗺️', title: 'ఫ్లోర్ ప్లాన్', desc: 'మీ ఇంటి లేఅవుట్ గీయండి' },
       { icon: '🌐', title: 'కమ్యూనిటీ ఫీడ్', desc: 'డిజైన్ ఆలోచనలు షేర్ చేయండి' },
+      { icon: '🏆', title: 'అచీవ్‌మెంట్స్', desc: 'మీ బ్యాడ్జెస్ చూడండి' },
     ]
   },
   hi: {
@@ -66,6 +68,7 @@ const translations = {
       { icon: '🎨', title: 'वॉल कलर', desc: 'पेंट करने से पहले रंग देखें' },
       { icon: '🗺️', title: 'फ्लोर प्लान', desc: 'अपने घर का लेआउट बनाएं' },
       { icon: '🌐', title: 'कम्युनिटी फीड', desc: 'डिज़ाइन आइडियाज़ शेयर करें' },
+      { icon: '🏆', title: 'अचीवमेंट्स', desc: 'अपने बैज देखें' },
     ]
   }
 };
@@ -101,7 +104,7 @@ function Dashboard() {
     }
   }, [darkMode]);
 
-  const paths = ['/plan', '/decor', '/waste', '/budget', '/vastu', '/saved', '/photo', '/progress', '/wallcolor', '/floorplan', '/community'];
+  const paths = ['/plan', '/decor', '/waste', '/budget', '/vastu', '/saved', '/photo', '/progress', '/wallcolor', '/floorplan', '/community', '/badges'];
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -140,6 +143,7 @@ function Dashboard() {
               7. Wall Color Visualizer
               8. Floor Plan Drawer
               9. Community Feed
+              10. Achievement Badges
               Answer questions about these features or general home design. Be friendly and helpful.`
             },
             ...updatedMessages
