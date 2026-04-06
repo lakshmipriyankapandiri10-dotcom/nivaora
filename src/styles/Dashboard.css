@@ -61,9 +61,9 @@
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 25px;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -234,6 +234,7 @@
 .chat-window-input button:hover {
   background: #a85d3d;
 }
+
 .dark-btn {
   background: transparent;
   border: 2px solid #888;
@@ -304,6 +305,7 @@
   background: #f5a623;
   color: white;
 }
+
 /* ===== MOBILE RESPONSIVE ===== */
 @media (max-width: 768px) {
   .dashboard {
