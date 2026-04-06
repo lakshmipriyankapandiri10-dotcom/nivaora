@@ -106,7 +106,7 @@ function Dashboard() {
     }
   }, [darkMode]);
 
-  const paths = ['/plan', '/decor', '/waste', '/budget', '/vastu', '/saved', '/photo', '/progress', '/wallcolor', '/floorplan', '/community', '/badges'];
+  const paths = ['/plan', '/decor', '/waste', '/budget', '/vastu', '/saved', '/photo', 'before/after', '/progress', '/wallcolor', '/floorplan', '/community', '/badges'];
 
   const handleLogout = async () => {
     await supabase.auth.signOut();

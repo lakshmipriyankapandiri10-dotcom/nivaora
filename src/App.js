@@ -17,6 +17,8 @@ import Wallcolor from './pages/Wallcolor';
 import FloorPlan from './pages/FloorPlan';
 import CommunityFeed from './pages/CommunityFeed';
 import Badges from './pages/Badges';
+import BeforeAfter from './pages/BeforeAfter';
+
 
 function App() {
   return (
@@ -39,6 +41,7 @@ function App() {
         <Route path="/floorplan" element={<FloorPlan />} />
         <Route path="/community" element={<CommunityFeed />} />
         <Route path="/badges" element={<Badges />} />
+        <Route path="/beforeafter" element={<BeforeAfter />} />
       </Routes>
     </Router>
   );
