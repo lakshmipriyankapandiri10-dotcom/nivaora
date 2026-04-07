@@ -224,3 +224,60 @@
 .btn-back:hover {
   background: #2d5a47;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .wall-container {
+    padding: 16px 12px;
+  }
+
+  .wall-box {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .wall-box h1 {
+    font-size: 22px;
+  }
+
+  .color-pickers-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .color-pick-group {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .options-grid {
+    gap: 8px;
+  }
+
+  .option-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .room-preview {
+    height: 220px;
+  }
+
+  .room-emoji {
+    font-size: 44px;
+  }
+
+  .room-label {
+    font-size: 16px;
+  }
+
+  .room-color-label {
+    font-size: 11px;
+  }
+
+  .btn-back {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+  }
+}
