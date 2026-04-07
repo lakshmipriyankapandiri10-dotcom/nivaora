@@ -26,6 +26,8 @@ const translations = {
       { icon: '🗺️', title: 'Floor Plan', desc: 'Draw your home layout' },
       { icon: '🌐', title: 'Community Feed', desc: 'Share and explore design ideas' },
       { icon: '🏆', title: 'Achievements', desc: 'View your earned badges' },
+      { icon: '✨', title: 'Before & After', desc: 'Transform your room with AI' },
+      { icon: '🌿', title: 'Garden Planner', desc: 'Plan your garden by season and city' },
     ]
   },
   te: {
@@ -48,6 +50,8 @@ const translations = {
       { icon: '🗺️', title: 'ఫ్లోర్ ప్లాన్', desc: 'మీ ఇంటి లేఅవుట్ గీయండి' },
       { icon: '🌐', title: 'కమ్యూనిటీ ఫీడ్', desc: 'డిజైన్ ఆలోచనలు షేర్ చేయండి' },
       { icon: '🏆', title: 'అచీవ్‌మెంట్స్', desc: 'మీ బ్యాడ్జెస్ చూడండి' },
+      { icon: '✨', title: 'బిఫోర్ & ఆఫ్టర్', desc: 'AI తో మీ గదిని మార్చండి' },
+      { icon: '🌿', title: 'గార్డెన్ ప్లానర్', desc: 'సీజన్ మరియు నగరం ప్రకారం గార్డెన్ ప్లాన్ చేయండి' },
     ]
   },
   hi: {
@@ -70,6 +74,8 @@ const translations = {
       { icon: '🗺️', title: 'फ्लोर प्लान', desc: 'अपने घर का लेआउट बनाएं' },
       { icon: '🌐', title: 'कम्युनिटी फीड', desc: 'डिज़ाइन आइडियाज़ शेयर करें' },
       { icon: '🏆', title: 'अचीवमेंट्स', desc: 'अपने बैज देखें' },
+      { icon: '✨', title: 'बिफोर & आफ्टर', desc: 'AI से अपना कमरा बदलें' },
+      { icon: '🌿', title: 'गार्डन प्लानर', desc: 'मौसम और शहर के अनुसार गार्डन प्लान करें' },
     ]
   }
 };
@@ -106,7 +112,11 @@ function Dashboard() {
     }
   }, [darkMode]);
 
-  const paths = ['/plan', '/decor', '/waste', '/budget', '/vastu', '/saved', '/photo', 'before/after', '/progress', '/wallcolor', '/floorplan', '/community', '/badges'];
+  const paths = [
+    '/plan', '/decor', '/waste', '/budget', '/vastu', '/saved',
+    '/photo', '/progress', '/wallcolor', '/floorplan', '/community',
+    '/badges', '/beforeafter', '/garden'
+  ];
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -146,6 +156,8 @@ function Dashboard() {
               8. Floor Plan Drawer
               9. Community Feed
               10. Achievement Badges
+              11. Before & After Room Transformation
+              12. Garden Planner
               Answer questions about these features or general home design. Be friendly and helpful.`
             },
             ...updatedMessages
