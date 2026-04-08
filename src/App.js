@@ -18,6 +18,7 @@ import FloorPlan from './pages/FloorPlan';
 import CommunityFeed from './pages/CommunityFeed';
 import Badges from './pages/Badges';
 import BeforeAfter from './pages/BeforeAfter';
+import GardenPlanner from './pages/GardenPlanner';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path="/community" element={<CommunityFeed />} />
         <Route path="/badges" element={<Badges />} />
         <Route path="/beforeafter" element={<BeforeAfter />} />
+        <Route path="/garden" element={<GardenPlanner />} />
       </Routes>
     </Router>
   );
