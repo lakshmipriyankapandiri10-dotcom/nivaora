@@ -19,6 +19,7 @@ import CommunityFeed from './pages/CommunityFeed';
 import Badges from './pages/Badges';
 import BeforeAfter from './pages/BeforeAfter';
 import GardenPlanner from './pages/GardenPlanner';
+import SeasonalGuide from './pages/SeasonalGuide';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path="/badges" element={<Badges />} />
         <Route path="/beforeafter" element={<BeforeAfter />} />
         <Route path="/garden" element={<GardenPlanner />} />
+        <Route path="/seasonal" element={<SeasonalGuide />} />
       </Routes>
     </Router>
   );

@@ -28,6 +28,7 @@ const translations = {
       { icon: '🏆', title: 'Achievements', desc: 'View your earned badges' },
       { icon: '✨', title: 'Before & After', desc: 'Transform your room with AI' },
       { icon: '🌿', title: 'Garden Planner', desc: 'Plan your garden by season and city' },
+      { icon: '🗓️', title: 'Seasonal Guide', desc: 'Festival and season home tips' },
     ]
   },
   te: {
@@ -52,6 +53,7 @@ const translations = {
       { icon: '🏆', title: 'అచీవ్‌మెంట్స్', desc: 'మీ బ్యాడ్జెస్ చూడండి' },
       { icon: '✨', title: 'బిఫోర్ & ఆఫ్టర్', desc: 'AI తో మీ గదిని మార్చండి' },
       { icon: '🌿', title: 'గార్డెన్ ప్లానర్', desc: 'సీజన్ మరియు నగరం ప్రకారం గార్డెన్ ప్లాన్ చేయండి' },
+      { icon: '🗓️', title: 'సీజనల్ గైడ్', desc: 'పండుగలు మరియు సీజన్ హోమ్ టిప్స్' },
     ]
   },
   hi: {
@@ -76,6 +78,7 @@ const translations = {
       { icon: '🏆', title: 'अचीवमेंट्स', desc: 'अपने बैज देखें' },
       { icon: '✨', title: 'बिफोर & आफ्टर', desc: 'AI से अपना कमरा बदलें' },
       { icon: '🌿', title: 'गार्डन प्लानर', desc: 'मौसम और शहर के अनुसार गार्डन प्लान करें' },
+      { icon: '🗓️', title: 'सीजनल गाइड', desc: 'त्योहार और मौसम होम टिप्स' },
     ]
   }
 };
@@ -115,7 +118,7 @@ function Dashboard() {
   const paths = [
     '/plan', '/decor', '/waste', '/budget', '/vastu', '/saved',
     '/photo', '/progress', '/wallcolor', '/floorplan', '/community',
-    '/badges', '/beforeafter', '/garden'
+    '/badges', '/beforeafter', '/garden', '/seasonal'
   ];
 
   const handleLogout = async () => {
@@ -158,6 +161,7 @@ function Dashboard() {
               10. Achievement Badges
               11. Before & After Room Transformation
               12. Garden Planner
+              13. Seasonal Home Guide
               Answer questions about these features or general home design. Be friendly and helpful.`
             },
             ...updatedMessages
