@@ -21,6 +21,7 @@ import BeforeAfter from './pages/BeforeAfter';
 import GardenPlanner from './pages/GardenPlanner';
 import SeasonalGuide from './pages/SeasonalGuide';
 import MaintenanceReminder from './pages/MaintenanceReminder';
+import CarbonScore from './pages/CarbonScore';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         <Route path="/garden" element={<GardenPlanner />} />
         <Route path="/seasonal" element={<SeasonalGuide />} />
         <Route path="/maintenance" element={<MaintenanceReminder />} />
+        <Route path="/carbon" element={<CarbonScore />} />
       </Routes>
     </Router>
   );

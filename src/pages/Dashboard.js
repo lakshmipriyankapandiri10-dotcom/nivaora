@@ -30,6 +30,7 @@ const translations = {
       { icon: '🌿', title: 'Garden Planner', desc: 'Plan your garden by season and city' },
       { icon: '🗓️', title: 'Seasonal Guide', desc: 'Festival and season home tips' },
       { icon: '🔔', title: 'Maintenance', desc: 'Home maintenance reminders' },
+      { icon: '🌱', title: 'Carbon Score', desc: 'Check your home eco score' },
     ]
   },
   te: {
@@ -56,6 +57,7 @@ const translations = {
       { icon: '🌿', title: 'గార్డెన్ ప్లానర్', desc: 'సీజన్ మరియు నగరం ప్రకారం గార్డెన్ ప్లాన్ చేయండి' },
       { icon: '🗓️', title: 'సీజనల్ గైడ్', desc: 'పండుగలు మరియు సీజన్ హోమ్ టిప్స్' },
       { icon: '🔔', title: 'మెయింటెనెన్స్', desc: 'ఇల్లు నిర్వహణ రిమైండర్లు' },
+      { icon: '🌱', title: 'కార్బన్ స్కోర్', desc: 'మీ ఇంటి ఎకో స్కోర్ చెక్ చేయండి' },
     ]
   },
   hi: {
@@ -82,6 +84,7 @@ const translations = {
       { icon: '🌿', title: 'गार्डन प्लानर', desc: 'मौसम और शहर के अनुसार गार्डन प्लान करें' },
       { icon: '🗓️', title: 'सीजनल गाइड', desc: 'त्योहार और मौसम होम टिप्स' },
       { icon: '🔔', title: 'मेंटेनेंस', desc: 'घर रखरखाव रिमाइंडर' },
+      { icon: '🌱', title: 'कार्बन स्कोर', desc: 'अपने घर का इको स्कोर चेक करें' },
     ]
   }
 };
@@ -121,7 +124,7 @@ function Dashboard() {
   const paths = [
     '/plan', '/decor', '/waste', '/budget', '/vastu', '/saved',
     '/photo', '/progress', '/wallcolor', '/floorplan', '/community',
-    '/badges', '/beforeafter', '/garden', '/seasonal', '/maintenance'
+    '/badges', '/beforeafter', '/garden', '/seasonal', '/maintenance', '/carbon'
   ];
 
   const handleLogout = async () => {
@@ -156,6 +159,7 @@ function Dashboard() {
               5. Vastu Guide 6. Saved Designs 7. Wall Color Visualizer 8. Floor Plan
               9. Community Feed 10. Achievement Badges 11. Before & After Transformation
               12. Garden Planner 13. Seasonal Home Guide 14. Maintenance Reminders
+              15. Carbon Footprint Score
               Answer questions about these features or general home design. Be friendly and helpful.`
             },
             ...updatedMessages
