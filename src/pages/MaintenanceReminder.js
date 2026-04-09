@@ -6,11 +6,11 @@ import '../styles/MaintenanceReminder.css';
 const CATEGORIES = ['Painting', 'Plumbing', 'Electrical', 'Garden', 'Cleaning', 'Pest Control', 'Roof', 'Other'];
 
 const DEFAULT_REMINDERS = [
-  { title: 'Repaint Walls', description: 'Repaint interior and exterior walls', category: 'Painting', due_date: '' },
-  { title: 'Pre-Monsoon Roof Check', description: 'Check roof for leaks before monsoon season', category: 'Roof', due_date: '' },
-  { title: 'Annual Pest Control', description: 'Get annual pest control done', category: 'Pest Control', due_date: '' },
-  { title: 'Water Tank Cleaning', description: 'Clean overhead water tank', category: 'Cleaning', due_date: '' },
-  { title: 'Garden Replanting', description: 'Replant garden for new season', category: 'Garden', due_date: '' },
+  { title: 'Repaint Walls', description: 'Repaint interior and exterior walls', category: 'Painting' },
+  { title: 'Pre-Monsoon Roof Check', description: 'Check roof for leaks before monsoon season', category: 'Roof' },
+  { title: 'Annual Pest Control', description: 'Get annual pest control done', category: 'Pest Control' },
+  { title: 'Water Tank Cleaning', description: 'Clean overhead water tank', category: 'Cleaning' },
+  { title: 'Garden Replanting', description: 'Replant garden for new season', category: 'Garden' },
 ];
 
 const CATEGORY_ICONS = {
@@ -35,10 +35,6 @@ function MaintenanceReminder() {
   const [category, setCategory] = useState('Cleaning');
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    fetchReminders();
-  }, []);
-
   const fetchReminders = async () => {
     setLoading(true);
     const { data: userData } = await supabase.auth.getUser();
@@ -53,6 +49,11 @@ function MaintenanceReminder() {
     setReminders(data || []);
     setLoading(false);
   };
+
+  useEffect(() => {
+    fetchReminders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleAdd = async () => {
     if (!title.trim() || !dueDate) return;
@@ -118,7 +119,6 @@ function MaintenanceReminder() {
       <div className="mr-content">
         {/* Left */}
         <div className="mr-left">
-          {/* Stats */}
           <div className="mr-stats">
             <div className="mr-stat">
               <span className="mr-stat-num">{reminders.length}</span>
@@ -134,12 +134,10 @@ function MaintenanceReminder() {
             </div>
           </div>
 
-          {/* Add Button */}
           <button className="mr-add-btn" onClick={() => setShowForm(!showForm)}>
             {showForm ? '✕ Cancel' : '+ Add Reminder'}
           </button>
 
-          {/* Add Form */}
           {showForm && (
             <div className="mr-form">
               <h3>➕ New Reminder</h3>
@@ -171,7 +169,6 @@ function MaintenanceReminder() {
             </div>
           )}
 
-          {/* Default Reminders */}
           <div className="mr-defaults">
             <h3>⚡ Quick Add</h3>
             {DEFAULT_REMINDERS.map((r, i) => (
@@ -187,7 +184,7 @@ function MaintenanceReminder() {
           </div>
         </div>
 
-        {/* Right — Reminders List */}
+        {/* Right */}
         <div className="mr-right">
           {loading && <div className="mr-loading">Loading reminders...</div>}
 
@@ -215,10 +212,7 @@ function MaintenanceReminder() {
                     </div>
                   </div>
                   <div className="mr-item-actions">
-                    <button
-                      className={`mr-done-btn ${r.done ? 'undo' : ''}`}
-                      onClick={() => handleToggleDone(r.id, r.done)}
-                    >
+                    <button className={`mr-done-btn ${r.done ? 'undo' : ''}`} onClick={() => handleToggleDone(r.id, r.done)}>
                       {r.done ? '↩️' : '✅'}
                     </button>
                     <button className="mr-delete-btn" onClick={() => handleDelete(r.id)}>🗑️</button>
