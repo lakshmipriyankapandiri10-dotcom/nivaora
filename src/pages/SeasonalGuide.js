@@ -18,6 +18,19 @@ function SeasonalGuide() {
   const [loading, setLoading] = useState(false);
   const [guide, setGuide] = useState(null);
   const [error, setError] = useState('');
+  const [images, setImages] = useState([]);
+
+  const fetchImages = async (query) => {
+    try {
+      const res = await fetch(
+        `https://api.unsplash.com/search/photos?query=${query}&per_page=3&client_id=${process.env.REACT_APP_UNSPLASH_KEY}`
+      );
+      const data = await res.json();
+      setImages(data.results || []);
+    } catch (err) {
+      console.log('Image fetch error:', err);
+    }
+  };
 
   const handleGenerate = async () => {
     if (!city.trim() || !selectedSeason) {
@@ -27,6 +40,9 @@ function SeasonalGuide() {
     setError('');
     setLoading(true);
     setGuide(null);
+    setImages([]);
+
+    fetchImages(`${selectedSeason.label} home decoration India`);
 
     try {
       const prompt = `You are an expert Indian home decorator. Create a complete seasonal home guide for:
@@ -39,25 +55,34 @@ COLOR THEME:
 Describe the ideal color theme for this season in 2 lines.
 
 5 DECOR IDEAS:
-1. Specific decor idea with description
-2. Specific decor idea with description
-3. Specific decor idea with description
-4. Specific decor idea with description
-5. Specific decor idea with description
+1. Specific decor item name — description
+2. Specific decor item name — description
+3. Specific decor item name — description
+4. Specific decor item name — description
+5. Specific decor item name — description
 
 SUITABLE PLANTS:
-3 plants perfect for this season with care tips.
+1. Plant name — care tip
+2. Plant name — care tip
+3. Plant name — care tip
 
 LIGHTING SUGGESTIONS:
-3 specific lighting ideas for this season.
+1. Lighting item name — description
+2. Lighting item name — description
+3. Lighting item name — description
 
 MAINTENANCE TASKS:
-4 home maintenance tasks important for this season in ${city}.
+1. Task name — description
+2. Task name — description
+3. Task name — description
+4. Task name — description
 
 FESTIVAL DECORATIONS:
-3 specific decoration ideas unique to ${selectedSeason.label}.
+1. Decoration item name — description
+2. Decoration item name — description
+3. Decoration item name — description
 
-SHOPPING LIST (under ₹500 each):
+SHOPPING LIST (under 500 rupees each):
 1. Item name — Where to buy — Price in rupees
 2. Item name — Where to buy — Price in rupees
 3. Item name — Where to buy — Price in rupees
@@ -91,10 +116,20 @@ Keep all suggestions practical for Indian homes in ${city}.`;
     return text.split('\n').map((line, i) => {
       if (line.match(/^[A-Z0-9\s&()]+:$/) || line.match(/^[A-Z][A-Z0-9\s&()]+:$/)) {
         return <h3 key={i} className="sg-section-title">{line}</h3>;
-      } else if (line.match(/^\d\./)) {
-        return <p key={i} className="sg-item">• {line.replace(/^\d\./, '').trim()}</p>;
-      } else if (line.startsWith('- ')) {
-        return <p key={i} className="sg-item">• {line.replace(/^- /, '')}</p>;
+      } else if (line.match(/^\d\./) || line.startsWith('- ')) {
+        const content = line.replace(/^\d\./, '').replace(/^- /, '').trim();
+        const itemName = content.split('—')[0].trim();
+        const rest = content.includes('—') ? ' — ' + content.split('—').slice(1).join('—') : '';
+        const amazonUrl = `https://www.amazon.in/s?k=${encodeURIComponent(itemName)}`;
+        return (
+          <p key={i} className="sg-item">
+            ✨{' '}
+            <a href={amazonUrl} target="_blank" rel="noopener noreferrer" className="sg-item-link">
+              {itemName}
+            </a>
+            {rest}
+          </p>
+        );
       } else if (line.trim()) {
         return <p key={i} className="sg-text">{line}</p>;
       }
@@ -165,14 +200,25 @@ Keep all suggestions practical for Indian homes in ${city}.`;
 
           {guide && !loading && (
             <div className="sg-result">
+              {/* Images */}
+              {images.length > 0 && (
+                <div className="sg-images">
+                  {images.map((img, i) => (
+                    <img key={i} src={img.urls.small} alt={img.alt_description || 'Decor'} className="sg-image" />
+                  ))}
+                </div>
+              )}
+
               <div className="sg-result-header" style={{ borderLeft: `4px solid ${selectedSeason?.color}` }}>
                 <h2>{selectedSeason?.icon} {selectedSeason?.label} Guide</h2>
                 <p>{city} • {selectedSeason?.label} Season</p>
               </div>
+
               <div className="sg-guide-content">
                 {formatGuide(guide)}
               </div>
-              <button className="sg-retry-btn" onClick={() => { setGuide(null); setCity(''); setSelectedSeason(null); }}>
+
+              <button className="sg-retry-btn" onClick={() => { setGuide(null); setCity(''); setSelectedSeason(null); setImages([]); }}>
                 🔄 Try Another Season
               </button>
             </div>
