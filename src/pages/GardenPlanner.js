@@ -7,37 +7,6 @@ import '../styles/GardenPlanner.css';
 const GARDEN_SIZES = ['Small (< 100 sq ft)', 'Medium (100-300 sq ft)', 'Large (> 300 sq ft)'];
 const SEASONS = ['☀️ Summer', '🌧️ Monsoon', '❄️ Winter', '🌸 Spring'];
 
-const SHOPPING_LINKS = {
-  'Summer': [
-    { name: 'Succulent Plant Set', store: 'Amazon', url: 'https://www.amazon.in/s?k=succulent+plants', price: '₹299' },
-    { name: 'Garden Sprinkler', store: 'Amazon', url: 'https://www.amazon.in/s?k=garden+sprinkler', price: '₹449' },
-    { name: 'Shade Net', store: 'Flipkart', url: 'https://www.flipkart.com/search?q=shade+net+garden', price: '₹399' },
-    { name: 'Terracotta Pots Set', store: 'Amazon', url: 'https://www.amazon.in/s?k=terracotta+pots', price: '₹349' },
-    { name: 'Garden Soil Mix', store: 'Flipkart', url: 'https://www.flipkart.com/search?q=garden+soil+mix', price: '₹249' },
-  ],
-  'Monsoon': [
-    { name: 'Indoor Plant Set', store: 'Amazon', url: 'https://www.amazon.in/s?k=indoor+plants', price: '₹399' },
-    { name: 'Drainage Pots', store: 'Flipkart', url: 'https://www.flipkart.com/search?q=drainage+pots', price: '₹299' },
-    { name: 'Garden Fungicide', store: 'Amazon', url: 'https://www.amazon.in/s?k=garden+fungicide', price: '₹199' },
-    { name: 'Waterproof Planter', store: 'Amazon', url: 'https://www.amazon.in/s?k=waterproof+planter', price: '₹449' },
-    { name: 'Cocopeat Block', store: 'Flipkart', url: 'https://www.flipkart.com/search?q=cocopeat+block', price: '₹149' },
-  ],
-  'Winter': [
-    { name: 'Marigold Seeds', store: 'Amazon', url: 'https://www.amazon.in/s?k=marigold+seeds', price: '₹99' },
-    { name: 'Flowering Plant Set', store: 'Flipkart', url: 'https://www.flipkart.com/search?q=flowering+plants', price: '₹349' },
-    { name: 'Garden Fertilizer', store: 'Amazon', url: 'https://www.amazon.in/s?k=garden+fertilizer', price: '₹249' },
-    { name: 'Plant Cover Net', store: 'Amazon', url: 'https://www.amazon.in/s?k=plant+frost+cover', price: '₹299' },
-    { name: 'Hanging Basket', store: 'Flipkart', url: 'https://www.flipkart.com/search?q=hanging+basket+plants', price: '₹199' },
-  ],
-  'Spring': [
-    { name: 'Rose Plant Set', store: 'Amazon', url: 'https://www.amazon.in/s?k=rose+plants', price: '₹399' },
-    { name: 'Seed Starter Kit', store: 'Flipkart', url: 'https://www.flipkart.com/search?q=seed+starter+kit', price: '₹299' },
-    { name: 'Garden Gloves', store: 'Amazon', url: 'https://www.amazon.in/s?k=garden+gloves', price: '₹149' },
-    { name: 'Colorful Pots Set', store: 'Amazon', url: 'https://www.amazon.in/s?k=colorful+flower+pots', price: '₹449' },
-    { name: 'Organic Compost', store: 'Flipkart', url: 'https://www.flipkart.com/search?q=organic+compost', price: '₹199' },
-  ],
-};
-
 function GardenPlanner() {
   const navigate = useNavigate();
   const [city, setCity] = useState('');
@@ -156,20 +125,25 @@ Keep all suggestions specific to ${city} climate and Indian gardening conditions
     return text.split('\n').map((line, i) => {
       if (line.match(/^[A-Z\s&]+:$/) || line.match(/^[A-Z][A-Z\s&]+:$/)) {
         return <h3 key={i} className="gp-section-title">{line}</h3>;
-      } else if (line.match(/^\d\./)) {
-        return <p key={i} className="gp-item">🌿 {line.replace(/^\d\./, '').trim()}</p>;
-      } else if (line.startsWith('- ')) {
-        return <p key={i} className="gp-item">• {line.replace(/^- /, '')}</p>;
+      } else if (line.match(/^\d\./) || line.startsWith('- ')) {
+        const content = line.replace(/^\d\./, '').replace(/^- /, '').trim();
+        const plantName = content.split('—')[0].trim();
+        const rest = content.includes('—') ? ' — ' + content.split('—').slice(1).join('—') : '';
+        const amazonUrl = `https://www.amazon.in/s?k=${encodeURIComponent(plantName + ' plant')}`;
+        return (
+          <p key={i} className="gp-item">
+            🌿{' '}
+            <a href={amazonUrl} target="_blank" rel="noopener noreferrer" className="gp-plant-link">
+              {plantName}
+            </a>
+            {rest}
+          </p>
+        );
       } else if (line.trim()) {
         return <p key={i} className="gp-text">{line}</p>;
       }
       return null;
     });
-  };
-
-  const getShoppingLinks = () => {
-    const seasonClean = season.replace(/[^a-zA-Z]/g, '');
-    return SHOPPING_LINKS[seasonClean] || SHOPPING_LINKS['Spring'];
   };
 
   return (
@@ -217,27 +191,6 @@ Keep all suggestions specific to ${city} climate and Indian gardening conditions
           <button className="gp-generate-btn" onClick={handleGenerate} disabled={loading}>
             {loading ? '🌱 Generating Garden Plan...' : '🌱 Generate My Garden Plan'}
           </button>
-
-          {/* Shopping Links */}
-          {plan && (
-            <div className="gp-card">
-              <h3>🛍️ Shop Garden Essentials</h3>
-              <div className="gp-shop-list">
-                {getShoppingLinks().map((item, i) => (
-                  <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className="gp-shop-item">
-                    <div className="gp-shop-info">
-                      <span className="gp-shop-name">{item.name}</span>
-                      <span className="gp-shop-store">{item.store}</span>
-                    </div>
-                    <div className="gp-shop-right">
-                      <span className="gp-shop-price">{item.price}</span>
-                      <span className="gp-shop-btn">Buy →</span>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Right */}
@@ -252,7 +205,6 @@ Keep all suggestions specific to ${city} climate and Indian gardening conditions
 
           {plan && !loading && (
             <div className="gp-result">
-              {/* Images */}
               {images.length > 0 && (
                 <div className="gp-images">
                   {images.map((img, i) => (
@@ -265,9 +217,11 @@ Keep all suggestions specific to ${city} climate and Indian gardening conditions
                 <h2>🌳 Your Garden Plan</h2>
                 <p>{city} • {gardenSize} • {season}</p>
               </div>
+
               <div className="gp-plan-content">
                 {formatPlan(plan)}
               </div>
+
               <button className="gp-retry-btn" onClick={() => { setPlan(null); setCity(''); setGardenSize(''); setSeason(''); setImages([]); }}>
                 🔄 Plan Another Garden
               </button>

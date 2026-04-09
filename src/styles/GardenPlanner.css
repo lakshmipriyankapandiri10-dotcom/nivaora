@@ -139,67 +139,6 @@
   cursor: not-allowed;
 }
 
-/* SHOPPING */
-.gp-shop-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.gp-shop-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f5f9f5;
-  border: 1px solid #e0f0e0;
-  border-radius: 12px;
-  padding: 10px 14px;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-
-.gp-shop-item:hover {
-  background: #e8f5e9;
-  transform: translateX(4px);
-  border-color: #2d4a3e;
-}
-
-.gp-shop-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.gp-shop-name {
-  font-size: 13px;
-  font-weight: bold;
-  color: #2d4a3e;
-}
-
-.gp-shop-store {
-  font-size: 11px;
-  color: #888;
-}
-
-.gp-shop-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-}
-
-.gp-shop-price {
-  font-size: 13px;
-  font-weight: bold;
-  color: #4caf50;
-}
-
-.gp-shop-btn {
-  font-size: 11px;
-  color: #c2714f;
-  font-weight: bold;
-}
-
 /* RIGHT */
 .gp-right {
   display: flex;
@@ -234,19 +173,9 @@
   justify-content: center;
 }
 
-.gp-empty span {
-  font-size: 60px;
-}
-
-.gp-empty h3 {
-  color: #2d4a3e;
-  margin: 16px 0 8px 0;
-}
-
-.gp-empty p {
-  color: #888;
-  font-size: 14px;
-}
+.gp-empty span { font-size: 60px; }
+.gp-empty h3 { color: #2d4a3e; margin: 16px 0 8px 0; }
+.gp-empty p { color: #888; font-size: 14px; }
 
 .gp-loading {
   background: white;
@@ -271,15 +200,8 @@
   50% { transform: rotate(10deg); }
 }
 
-.gp-loading h3 {
-  color: #2d4a3e;
-  margin: 16px 0 8px 0;
-}
-
-.gp-loading p {
-  color: #888;
-  font-size: 14px;
-}
+.gp-loading h3 { color: #2d4a3e; margin: 16px 0 8px 0; }
+.gp-loading p { color: #888; font-size: 14px; }
 
 .gp-result {
   background: white;
@@ -291,20 +213,11 @@
   gap: 16px;
 }
 
-.gp-result-header h2 {
-  color: #2d4a3e;
-  margin: 0 0 4px 0;
-  font-size: 20px;
-}
-
-.gp-result-header p {
-  color: #888;
-  font-size: 13px;
-  margin: 0;
-}
+.gp-result-header h2 { color: #2d4a3e; margin: 0 0 4px 0; font-size: 20px; }
+.gp-result-header p { color: #888; font-size: 13px; margin: 0; }
 
 .gp-plan-content {
-  max-height: 400px;
+  max-height: 450px;
   overflow-y: auto;
   padding-right: 4px;
 }
@@ -324,6 +237,18 @@
   margin: 6px 0;
   padding-left: 8px;
   line-height: 1.5;
+}
+
+.gp-plant-link {
+  color: #c2714f;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: 1px dashed #c2714f;
+}
+
+.gp-plant-link:hover {
+  color: #2d4a3e;
+  border-bottom-color: #2d4a3e;
 }
 
 .gp-text {
