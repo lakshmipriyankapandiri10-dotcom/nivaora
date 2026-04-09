@@ -29,6 +29,7 @@ const translations = {
       { icon: '✨', title: 'Before & After', desc: 'Transform your room with AI' },
       { icon: '🌿', title: 'Garden Planner', desc: 'Plan your garden by season and city' },
       { icon: '🗓️', title: 'Seasonal Guide', desc: 'Festival and season home tips' },
+      { icon: '🔔', title: 'Maintenance', desc: 'Home maintenance reminders' },
     ]
   },
   te: {
@@ -54,6 +55,7 @@ const translations = {
       { icon: '✨', title: 'బిఫోర్ & ఆఫ్టర్', desc: 'AI తో మీ గదిని మార్చండి' },
       { icon: '🌿', title: 'గార్డెన్ ప్లానర్', desc: 'సీజన్ మరియు నగరం ప్రకారం గార్డెన్ ప్లాన్ చేయండి' },
       { icon: '🗓️', title: 'సీజనల్ గైడ్', desc: 'పండుగలు మరియు సీజన్ హోమ్ టిప్స్' },
+      { icon: '🔔', title: 'మెయింటెనెన్స్', desc: 'ఇల్లు నిర్వహణ రిమైండర్లు' },
     ]
   },
   hi: {
@@ -79,6 +81,7 @@ const translations = {
       { icon: '✨', title: 'बिफोर & आफ्टर', desc: 'AI से अपना कमरा बदलें' },
       { icon: '🌿', title: 'गार्डन प्लानर', desc: 'मौसम और शहर के अनुसार गार्डन प्लान करें' },
       { icon: '🗓️', title: 'सीजनल गाइड', desc: 'त्योहार और मौसम होम टिप्स' },
+      { icon: '🔔', title: 'मेंटेनेंस', desc: 'घर रखरखाव रिमाइंडर' },
     ]
   }
 };
@@ -118,7 +121,7 @@ function Dashboard() {
   const paths = [
     '/plan', '/decor', '/waste', '/budget', '/vastu', '/saved',
     '/photo', '/progress', '/wallcolor', '/floorplan', '/community',
-    '/badges', '/beforeafter', '/garden', '/seasonal'
+    '/badges', '/beforeafter', '/garden', '/seasonal', '/maintenance'
   ];
 
   const handleLogout = async () => {
@@ -149,19 +152,10 @@ function Dashboard() {
               role: 'system',
               content: `You are Nivaora Assistant — a helpful chatbot for the Nivaora home design app.
               Nivaora has these features:
-              1. Plan My Home
-              2. Decor Ideas
-              3. Waste to Decor
-              4. Budget Planner
-              5. Vastu Guide
-              6. Saved Designs
-              7. Wall Color Visualizer
-              8. Floor Plan Drawer
-              9. Community Feed
-              10. Achievement Badges
-              11. Before & After Room Transformation
-              12. Garden Planner
-              13. Seasonal Home Guide
+              1. Plan My Home 2. Decor Ideas 3. Waste to Decor 4. Budget Planner
+              5. Vastu Guide 6. Saved Designs 7. Wall Color Visualizer 8. Floor Plan
+              9. Community Feed 10. Achievement Badges 11. Before & After Transformation
+              12. Garden Planner 13. Seasonal Home Guide 14. Maintenance Reminders
               Answer questions about these features or general home design. Be friendly and helpful.`
             },
             ...updatedMessages

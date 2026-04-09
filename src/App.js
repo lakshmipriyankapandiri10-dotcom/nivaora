@@ -20,7 +20,7 @@ import Badges from './pages/Badges';
 import BeforeAfter from './pages/BeforeAfter';
 import GardenPlanner from './pages/GardenPlanner';
 import SeasonalGuide from './pages/SeasonalGuide';
-
+import MaintenanceReminder from './pages/MaintenanceReminder';
 
 function App() {
   return (
@@ -46,6 +46,7 @@ function App() {
         <Route path="/beforeafter" element={<BeforeAfter />} />
         <Route path="/garden" element={<GardenPlanner />} />
         <Route path="/seasonal" element={<SeasonalGuide />} />
+        <Route path="/maintenance" element={<MaintenanceReminder />} />
       </Routes>
     </Router>
   );
