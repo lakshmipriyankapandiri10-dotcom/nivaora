@@ -37,6 +37,8 @@ const translations = {
     profile: '👤 Profile',
     logout: 'Logout',
     tipTitle: '💡 Tip of the Day',
+    streakLabel: 'Day Streak',
+    longestLabel: 'Best',
     features: [
       { icon: '🏗️', title: 'Plan My Home', desc: 'Design your dream home from your plot' },
       { icon: '🏠', title: 'Decor Ideas', desc: 'Room by room decoration suggestions' },
@@ -65,6 +67,8 @@ const translations = {
     profile: '👤 ప్రొఫైల్',
     logout: 'లాగ్అవుట్',
     tipTitle: '💡 నేటి టిప్',
+    streakLabel: 'రోజుల స్ట్రీక్',
+    longestLabel: 'బెస్ట్',
     features: [
       { icon: '🏗️', title: 'నా ఇల్లు ప్లాన్ చేయి', desc: 'మీ స్థలం నుండి కల ఇంటిని డిజైన్ చేయండి' },
       { icon: '🏠', title: 'డెకోర్ ఆలోచనలు', desc: 'గది వారీగా అలంకరణ సూచనలు' },
@@ -93,6 +97,8 @@ const translations = {
     profile: '👤 प्रोफाइल',
     logout: 'लॉगआउट',
     tipTitle: '💡 आज की टिप',
+    streakLabel: 'दिन स्ट्रीक',
+    longestLabel: 'बेस्ट',
     features: [
       { icon: '🏗️', title: 'घर की योजना बनाएं', desc: 'अपने प्लॉट से सपनों का घर डिज़ाइन करें' },
       { icon: '🏠', title: 'डेकोर आइडियाज़', desc: 'कमरे के अनुसार सजावट के सुझाव' },
@@ -127,8 +133,67 @@ function Dashboard() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [dailyTip, setDailyTip] = useState('');
+  const [streak, setStreak] = useState(0);
+  const [longestStreak, setLongestStreak] = useState(0);
 
   const t = translations[lang];
+
+  const updateStreak = async (userId) => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+
+      const { data: existing } = await supabase
+        .from('user_streaks')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+
+      if (!existing) {
+        // First time
+        await supabase.from('user_streaks').insert([{
+          user_id: userId,
+          current_streak: 1,
+          last_login: today,
+          longest_streak: 1,
+        }]);
+        setStreak(1);
+        setLongestStreak(1);
+      } else {
+        const lastLogin = existing.last_login;
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+        let newStreak = existing.current_streak;
+
+        if (lastLogin === today) {
+          // Already logged in today
+          setStreak(existing.current_streak);
+          setLongestStreak(existing.longest_streak);
+          return;
+        } else if (lastLogin === yesterdayStr) {
+          // Consecutive day
+          newStreak = existing.current_streak + 1;
+        } else {
+          // Streak broken
+          newStreak = 1;
+        }
+
+        const newLongest = Math.max(newStreak, existing.longest_streak);
+
+        await supabase.from('user_streaks').update({
+          current_streak: newStreak,
+          last_login: today,
+          longest_streak: newLongest,
+        }).eq('user_id', userId);
+
+        setStreak(newStreak);
+        setLongestStreak(newLongest);
+      }
+    } catch (err) {
+      console.log('Streak error:', err);
+    }
+  };
 
   useEffect(() => {
     const getUser = async () => {
@@ -136,12 +201,13 @@ function Dashboard() {
       if (!data.user) { navigate('/login'); return; }
       setUserName(data.user.user_metadata.name || 'Friend');
       await earnBadge('first_login', 'First Login', '🏅');
+      await updateStreak(data.user.id);
     };
     getUser();
 
-    // Daily tip based on day of year
     const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
     setDailyTip(DAILY_TIPS[dayOfYear % DAILY_TIPS.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   useEffect(() => {
@@ -208,6 +274,14 @@ function Dashboard() {
     if (e.key === 'Enter') sendMessage();
   };
 
+  const getStreakEmoji = (s) => {
+    if (s >= 30) return '🏆';
+    if (s >= 14) return '⚡';
+    if (s >= 7) return '🔥';
+    if (s >= 3) return '✨';
+    return '🌱';
+  };
+
   return (
     <div className={`dashboard ${darkMode ? 'dark' : ''}`}>
       <div className="dashboard-header">
@@ -230,13 +304,32 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* Daily Tip */}
-      {dailyTip && (
-        <div className={`daily-tip ${darkMode ? 'dark-tip' : ''}`}>
-          <span className="tip-label">{t.tipTitle}</span>
-          <p className="tip-text">{dailyTip}</p>
-        </div>
-      )}
+      {/* Streak + Daily Tip Row */}
+      <div className="dashboard-top-row">
+        {/* Streak */}
+        {streak > 0 && (
+          <div className={`streak-card ${darkMode ? 'dark-streak' : ''}`}>
+            <div className="streak-emoji">{getStreakEmoji(streak)}</div>
+            <div className="streak-info">
+              <span className="streak-num">{streak}</span>
+              <span className="streak-label">{t.streakLabel}</span>
+            </div>
+            <div className="streak-divider" />
+            <div className="streak-info">
+              <span className="streak-num">{longestStreak}</span>
+              <span className="streak-label">{t.longestLabel}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Daily Tip */}
+        {dailyTip && (
+          <div className={`daily-tip ${darkMode ? 'dark-tip' : ''}`}>
+            <span className="tip-label">{t.tipTitle}</span>
+            <p className="tip-text">{dailyTip}</p>
+          </div>
+        )}
+      </div>
 
       <div className="features-grid">
         {t.features.map((f, i) => (

@@ -25,6 +25,7 @@
 .header-btns {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .profile-btn {
@@ -38,10 +39,7 @@
   transition: all 0.3s;
 }
 
-.profile-btn:hover {
-  background: #2d4a3e;
-  color: white;
-}
+.profile-btn:hover { background: #2d4a3e; color: white; }
 
 .logout-btn {
   background: transparent;
@@ -54,9 +52,64 @@
   transition: all 0.3s;
 }
 
-.logout-btn:hover {
-  background: #c2714f;
-  color: white;
+.logout-btn:hover { background: #c2714f; color: white; }
+
+/* TOP ROW */
+.dashboard-top-row {
+  display: flex;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto 24px auto;
+  align-items: stretch;
+}
+
+/* STREAK */
+.streak-card {
+  background: linear-gradient(135deg, #fff8e1, #ffeaa7);
+  border: 2px solid #f5a623;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+.streak-card.dark-streak {
+  background: linear-gradient(135deg, #2a2510, #1a1500);
+  border-color: #f5a623;
+}
+
+.streak-emoji {
+  font-size: 32px;
+}
+
+.streak-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.streak-num {
+  font-size: 24px;
+  font-weight: bold;
+  color: #c2714f;
+  line-height: 1;
+}
+
+.streak-label {
+  font-size: 11px;
+  color: #888;
+  font-weight: bold;
+  text-align: center;
+}
+
+.streak-divider {
+  width: 1px;
+  height: 40px;
+  background: #f5a623;
+  opacity: 0.4;
 }
 
 /* DAILY TIP */
@@ -65,14 +118,10 @@
   border: 1px solid #f5a623;
   border-radius: 16px;
   padding: 16px 20px;
-  margin-bottom: 24px;
   display: flex;
   align-items: center;
   gap: 14px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 24px;
+  flex: 1;
 }
 
 .daily-tip.dark-tip {
@@ -81,11 +130,11 @@
 }
 
 .tip-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
   color: #f5a623;
   white-space: nowrap;
-  background: #fff8e1;
+  background: rgba(245,166,35,0.15);
   padding: 4px 10px;
   border-radius: 10px;
 }
@@ -97,9 +146,7 @@
   line-height: 1.5;
 }
 
-.daily-tip.dark-tip .tip-text {
-  color: #e0e0e0;
-}
+.daily-tip.dark-tip .tip-text { color: #e0e0e0; }
 
 /* FEATURES GRID */
 .features-grid {
@@ -125,21 +172,11 @@
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
 
-.feature-icon {
-  font-size: 40px;
-}
+.feature-icon { font-size: 40px; }
+.feature-card h3 { color: #2d4a3e; margin: 15px 0 8px 0; }
+.feature-card p { color: #888; font-size: 14px; margin: 0; }
 
-.feature-card h3 {
-  color: #2d4a3e;
-  margin: 15px 0 8px 0;
-}
-
-.feature-card p {
-  color: #888;
-  font-size: 14px;
-  margin: 0;
-}
-
+/* CHAT */
 .chat-float-btn {
   position: fixed;
   bottom: 30px;
@@ -158,10 +195,7 @@
   z-index: 1000;
 }
 
-.chat-float-btn:hover {
-  transform: scale(1.1);
-  background: #c2714f;
-}
+.chat-float-btn:hover { transform: scale(1.1); background: #c2714f; }
 
 .chat-window {
   position: fixed;
@@ -219,18 +253,8 @@
   white-space: pre-wrap;
 }
 
-.message.user .message-bubble {
-  background: #c2714f;
-  color: white;
-  border-bottom-right-radius: 4px;
-}
-
-.message.assistant .message-bubble {
-  background: #f5f0eb;
-  color: #333;
-  border-bottom-left-radius: 4px;
-}
-
+.message.user .message-bubble { background: #c2714f; color: white; border-bottom-right-radius: 4px; }
+.message.assistant .message-bubble { background: #f5f0eb; color: #333; border-bottom-left-radius: 4px; }
 .typing { color: #888; font-style: italic; }
 
 .chat-window-input {
@@ -333,6 +357,13 @@
   }
 
   .lang-toggle { width: 100%; justify-content: center; }
+
+  .dashboard-top-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .streak-card { min-width: unset; }
 
   .daily-tip {
     flex-direction: column;
