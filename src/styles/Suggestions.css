@@ -50,6 +50,7 @@
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.3s;
+  margin-top: 10px;
 }
 
 .btn-primary:hover {
@@ -85,6 +86,7 @@
   border-radius: 15px;
   object-fit: cover;
 }
+
 .btn-download {
   width: 100%;
   background: #2d4a3e;
@@ -101,7 +103,51 @@
 .btn-download:hover {
   background: #1a2e25;
 }
-/* ===== MOBILE RESPONSIVE ===== */
+
+/* SHARE BUTTONS */
+.share-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btn-whatsapp:hover {
+  background: #1da851;
+  transform: translateY(-2px);
+}
+
+.btn-copy {
+  background: #f5f0eb;
+  color: #2d4a3e;
+  border: 2px solid #2d4a3e;
+  padding: 14px;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btn-copy:hover {
+  background: #2d4a3e;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* MOBILE */
 @media (max-width: 768px) {
   .suggestions-container {
     padding: 16px;
@@ -126,6 +172,16 @@
   .btn-primary,
   .btn-image,
   .btn-download {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .share-btns {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-whatsapp,
+  .btn-copy {
     font-size: 14px;
     padding: 12px;
   }

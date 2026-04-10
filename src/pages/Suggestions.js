@@ -13,6 +13,7 @@ function Suggestions() {
   const [showImage, setShowImage] = useState(false);
   const [imageLoading, setImageLoading] = useState(false);
   const [prefs, setPrefs] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const getSuggestions = async () => {
@@ -94,6 +95,19 @@ function Suggestions() {
     doc.save('nivaora-suggestions.pdf');
   };
 
+  const shareOnWhatsApp = () => {
+    const text = `🏡 My Nivaora Home Design Plan!\n\n${suggestions.substring(0, 300)}...\n\nCheck out Nivaora: https://nivaora.vercel.app`;
+    const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  };
+
+  const copyLink = () => {
+    const text = `🏡 My Nivaora Home Design Plan!\n\n${suggestions.substring(0, 500)}...\n\nCheck out Nivaora: https://nivaora.vercel.app`;
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className="suggestions-container">
       <div className="suggestions-box">
@@ -111,6 +125,7 @@ function Suggestions() {
             <div className="suggestions-content">
               <p>{suggestions}</p>
             </div>
+
             <button onClick={getImage} className="btn-image">
               View Home Image 🏠
             </button>
@@ -120,9 +135,20 @@ function Suggestions() {
                 <img src={image} alt="Home Design" className="home-image" />
               </div>
             )}
+
             <button onClick={downloadPDF} className="btn-download">
               📥 Download as PDF
             </button>
+
+            {/* Share Buttons */}
+            <div className="share-btns">
+              <button onClick={shareOnWhatsApp} className="btn-whatsapp">
+                📲 Share on WhatsApp
+              </button>
+              <button onClick={copyLink} className="btn-copy">
+                {copied ? '✅ Copied!' : '🔗 Copy Link'}
+              </button>
+            </div>
           </>
         )}
         <button onClick={() => navigate('/dashboard')} className="btn-primary">
