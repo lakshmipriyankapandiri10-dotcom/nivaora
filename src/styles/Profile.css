@@ -37,7 +37,7 @@
   margin-bottom: 5px;
 }
 
-.profile-box p {
+.profile-box > p {
   color: #888;
   margin-bottom: 25px;
 }
@@ -134,7 +134,7 @@
   background: #2d4a3e;
   color: white;
 }
-/* ===== MOBILE RESPONSIVE ===== */
+
 @media (max-width: 768px) {
   .profile-container {
     padding: 16px;
