@@ -20,6 +20,7 @@ import Badges from './pages/Badges';
 import BeforeAfter from './pages/BeforeAfter';
 import GardenPlanner from './pages/GardenPlanner';
 import SeasonalGuide from './pages/SeasonalGuide';
+import Profile from './pages/Profile';
 import MaintenanceReminder from './pages/MaintenanceReminder';
 import CarbonScore from './pages/CarbonScore';
 
@@ -47,6 +48,7 @@ function App() {
         <Route path="/beforeafter" element={<BeforeAfter />} />
         <Route path="/garden" element={<GardenPlanner />} />
         <Route path="/seasonal" element={<SeasonalGuide />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/maintenance" element={<MaintenanceReminder />} />
         <Route path="/carbon" element={<CarbonScore />} />
       </Routes>
