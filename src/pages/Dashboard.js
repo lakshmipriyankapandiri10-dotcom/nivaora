@@ -176,7 +176,8 @@ function Dashboard() {
     setSearchResults(matched);
     setShowDropdown(true);
     setActiveIdx(-1);
-  }, [searchQuery, lang]); // re-run when lang changes too
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery, lang]);
 
   const handleSearchKey = (e) => {
     if (!showDropdown || !searchResults.length) return;
@@ -466,4 +467,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Dashboard;s
