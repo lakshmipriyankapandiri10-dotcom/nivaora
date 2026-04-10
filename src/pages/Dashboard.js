@@ -5,6 +5,29 @@ import Notifications from './Notifications';
 import '../styles/Dashboard.css';
 import { earnBadge } from '../utils/badgeHelper';
 
+const DAILY_TIPS = [
+  "🌿 Add indoor plants like Money Plant or Peace Lily to improve air quality in your home!",
+  "💡 Use warm LED bulbs (2700K-3000K) in living rooms for a cozy feel.",
+  "🎨 Paint your north-facing rooms in warm colors to compensate for less sunlight.",
+  "🪟 Keep windows clean — natural light makes rooms look bigger and brighter!",
+  "♻️ Old sarees and dupattas can be repurposed as beautiful curtains or wall hangings.",
+  "🌬️ Cross ventilation — open windows on opposite walls to naturally cool your home.",
+  "🏠 Declutter one room per week — a clean home feels bigger and more peaceful.",
+  "💧 Fix dripping taps immediately — a small drip wastes 20 liters of water per day!",
+  "🌺 Marigold plants near entrance keep mosquitoes away naturally.",
+  "🛋️ Use mirrors strategically to make small rooms appear larger.",
+  "🎍 Bamboo plants are lucky according to Vastu and grow easily indoors.",
+  "🔧 Check water pipes every monsoon before the rains start.",
+  "🌙 Use blackout curtains in bedrooms for better sleep quality.",
+  "🏡 Paint your main door a bold color — it creates a great first impression!",
+  "🌱 Compost your kitchen waste — it makes excellent fertilizer for your garden.",
+  "💰 Buy furniture during festival sales — Diwali and Onam have the best discounts!",
+  "🪴 Terracotta pots are better than plastic — they allow soil to breathe.",
+  "🧹 Clean ceiling fans monthly — dust on blades reduces efficiency by 25%.",
+  "🌞 South-facing homes get the most sunlight — great for solar panels!",
+  "🎯 Use vertical space — tall shelves save floor space in small homes.",
+];
+
 const translations = {
   en: {
     welcome: 'Welcome back',
@@ -13,6 +36,7 @@ const translations = {
     light: '☀️ Light',
     profile: '👤 Profile',
     logout: 'Logout',
+    tipTitle: '💡 Tip of the Day',
     features: [
       { icon: '🏗️', title: 'Plan My Home', desc: 'Design your dream home from your plot' },
       { icon: '🏠', title: 'Decor Ideas', desc: 'Room by room decoration suggestions' },
@@ -40,6 +64,7 @@ const translations = {
     light: '☀️ లైట్',
     profile: '👤 ప్రొఫైల్',
     logout: 'లాగ్అవుట్',
+    tipTitle: '💡 నేటి టిప్',
     features: [
       { icon: '🏗️', title: 'నా ఇల్లు ప్లాన్ చేయి', desc: 'మీ స్థలం నుండి కల ఇంటిని డిజైన్ చేయండి' },
       { icon: '🏠', title: 'డెకోర్ ఆలోచనలు', desc: 'గది వారీగా అలంకరణ సూచనలు' },
@@ -67,6 +92,7 @@ const translations = {
     light: '☀️ लाइट',
     profile: '👤 प्रोफाइल',
     logout: 'लॉगआउट',
+    tipTitle: '💡 आज की टिप',
     features: [
       { icon: '🏗️', title: 'घर की योजना बनाएं', desc: 'अपने प्लॉट से सपनों का घर डिज़ाइन करें' },
       { icon: '🏠', title: 'डेकोर आइडियाज़', desc: 'कमरे के अनुसार सजावट के सुझाव' },
@@ -100,6 +126,7 @@ function Dashboard() {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [dailyTip, setDailyTip] = useState('');
 
   const t = translations[lang];
 
@@ -111,6 +138,10 @@ function Dashboard() {
       await earnBadge('first_login', 'First Login', '🏅');
     };
     getUser();
+
+    // Daily tip based on day of year
+    const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+    setDailyTip(DAILY_TIPS[dayOfYear % DAILY_TIPS.length]);
   }, [navigate]);
 
   useEffect(() => {
@@ -198,6 +229,14 @@ function Dashboard() {
           <button onClick={handleLogout} className="logout-btn">{t.logout}</button>
         </div>
       </div>
+
+      {/* Daily Tip */}
+      {dailyTip && (
+        <div className={`daily-tip ${darkMode ? 'dark-tip' : ''}`}>
+          <span className="tip-label">{t.tipTitle}</span>
+          <p className="tip-text">{dailyTip}</p>
+        </div>
+      )}
 
       <div className="features-grid">
         {t.features.map((f, i) => (
