@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
 import Notifications from './Notifications';
@@ -39,6 +39,8 @@ const translations = {
     tipTitle: '💡 Tip of the Day',
     streakLabel: 'Day Streak',
     longestLabel: 'Best',
+    searchPlaceholder: 'Search features...',
+    noResults: 'No results found',
     features: [
       { icon: '🏗️', title: 'Plan My Home', desc: 'Design your dream home from your plot' },
       { icon: '🏠', title: 'Decor Ideas', desc: 'Room by room decoration suggestions' },
@@ -69,6 +71,8 @@ const translations = {
     tipTitle: '💡 నేటి టిప్',
     streakLabel: 'రోజుల స్ట్రీక్',
     longestLabel: 'బెస్ట్',
+    searchPlaceholder: 'ఫీచర్లు వెతకండి...',
+    noResults: 'ఫలితాలు లేవు',
     features: [
       { icon: '🏗️', title: 'నా ఇల్లు ప్లాన్ చేయి', desc: 'మీ స్థలం నుండి కల ఇంటిని డిజైన్ చేయండి' },
       { icon: '🏠', title: 'డెకోర్ ఆలోచనలు', desc: 'గది వారీగా అలంకరణ సూచనలు' },
@@ -99,6 +103,8 @@ const translations = {
     tipTitle: '💡 आज की टिप',
     streakLabel: 'दिन स्ट्रीक',
     longestLabel: 'बेस्ट',
+    searchPlaceholder: 'फीचर्स खोजें...',
+    noResults: 'कोई परिणाम नहीं',
     features: [
       { icon: '🏗️', title: 'घर की योजना बनाएं', desc: 'अपने प्लॉट से सपनों का घर डिज़ाइन करें' },
       { icon: '🏠', title: 'डेकोर आइडियाज़', desc: 'कमरे के अनुसार सजावट के सुझाव' },
@@ -121,27 +127,80 @@ const translations = {
   }
 };
 
+const paths = [
+  '/plan', '/decor', '/waste', '/budget', '/vastu', '/saved',
+  '/photo', '/progress', '/wallcolor', '/floorplan', '/community',
+  '/badges', '/beforeafter', '/garden', '/seasonal', '/maintenance', '/carbon'
+];
+
 function Dashboard() {
-  const navigate = useNavigate();
-  const [userName, setUserName] = useState('');
-  const [chatOpen, setChatOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [lang, setLang] = useState('en');
-  const [messages, setMessages] = useState([
+  const navigate   = useNavigate();
+  const searchRef  = useRef(null);
+
+  const [userName,       setUserName]       = useState('');
+  const [chatOpen,       setChatOpen]       = useState(false);
+  const [darkMode,       setDarkMode]       = useState(false);
+  const [lang,           setLang]           = useState('en');
+  const [messages,       setMessages]       = useState([
     { role: 'assistant', content: 'Hi! 👋 I am Nivaora Assistant. Ask me anything about home design or this app!' }
   ]);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [dailyTip, setDailyTip] = useState('');
-  const [streak, setStreak] = useState(0);
-  const [longestStreak, setLongestStreak] = useState(0);
+  const [input,          setInput]          = useState('');
+  const [loading,        setLoading]        = useState(false);
+  const [dailyTip,       setDailyTip]       = useState('');
+  const [streak,         setStreak]         = useState(0);
+  const [longestStreak,  setLongestStreak]  = useState(0);
+
+  // ── Search State ────────────────────────────────────────────
+  const [searchQuery,   setSearchQuery]   = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [showDropdown,  setShowDropdown]  = useState(false);
+  const [activeIdx,     setActiveIdx]     = useState(-1);
 
   const t = translations[lang];
 
+  // ── Search Logic ────────────────────────────────────────────
+  useEffect(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) {
+      setSearchResults([]);
+      setShowDropdown(false);
+      setActiveIdx(-1);
+      return;
+    }
+    const matched = t.features
+      .map((f, i) => ({ ...f, path: paths[i] }))
+      .filter(f =>
+        f.title.toLowerCase().includes(q) ||
+        f.desc.toLowerCase().includes(q)
+      );
+    setSearchResults(matched);
+    setShowDropdown(true);
+    setActiveIdx(-1);
+  }, [searchQuery, lang]); // re-run when lang changes too
+
+  const handleSearchKey = (e) => {
+    if (!showDropdown || !searchResults.length) return;
+    if      (e.key === 'ArrowDown')              setActiveIdx(p => (p + 1) % searchResults.length);
+    else if (e.key === 'ArrowUp')                setActiveIdx(p => (p - 1 + searchResults.length) % searchResults.length);
+    else if (e.key === 'Enter' && activeIdx >= 0) goToFeature(searchResults[activeIdx].path);
+    else if (e.key === 'Escape')                 clearSearch();
+  };
+
+  const goToFeature = (path) => { navigate(path); clearSearch(); };
+  const clearSearch = ()      => { setSearchQuery(''); setShowDropdown(false); setActiveIdx(-1); };
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) setShowDropdown(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  // ── Streak Logic ────────────────────────────────────────────
   const updateStreak = async (userId) => {
     try {
       const today = new Date().toISOString().split('T')[0];
-
       const { data: existing } = await supabase
         .from('user_streaks')
         .select('*')
@@ -149,46 +208,30 @@ function Dashboard() {
         .single();
 
       if (!existing) {
-        // First time
         await supabase.from('user_streaks').insert([{
-          user_id: userId,
-          current_streak: 1,
-          last_login: today,
-          longest_streak: 1,
+          user_id: userId, current_streak: 1, last_login: today, longest_streak: 1,
         }]);
-        setStreak(1);
-        setLongestStreak(1);
+        setStreak(1); setLongestStreak(1);
       } else {
-        const lastLogin = existing.last_login;
-        const yesterday = new Date();
+        const lastLogin   = existing.last_login;
+        const yesterday   = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         const yesterdayStr = yesterday.toISOString().split('T')[0];
 
-        let newStreak = existing.current_streak;
-
         if (lastLogin === today) {
-          // Already logged in today
           setStreak(existing.current_streak);
           setLongestStreak(existing.longest_streak);
           return;
-        } else if (lastLogin === yesterdayStr) {
-          // Consecutive day
-          newStreak = existing.current_streak + 1;
-        } else {
-          // Streak broken
-          newStreak = 1;
         }
 
+        const newStreak  = lastLogin === yesterdayStr ? existing.current_streak + 1 : 1;
         const newLongest = Math.max(newStreak, existing.longest_streak);
 
         await supabase.from('user_streaks').update({
-          current_streak: newStreak,
-          last_login: today,
-          longest_streak: newLongest,
+          current_streak: newStreak, last_login: today, longest_streak: newLongest,
         }).eq('user_id', userId);
 
-        setStreak(newStreak);
-        setLongestStreak(newLongest);
+        setStreak(newStreak); setLongestStreak(newLongest);
       }
     } catch (err) {
       console.log('Streak error:', err);
@@ -211,18 +254,8 @@ function Dashboard() {
   }, [navigate]);
 
   useEffect(() => {
-    if (darkMode) {
-      document.body.style.background = '#1a1a2e';
-    } else {
-      document.body.style.background = '';
-    }
+    document.body.style.background = darkMode ? '#1a1a2e' : '';
   }, [darkMode]);
-
-  const paths = [
-    '/plan', '/decor', '/waste', '/budget', '/vastu', '/saved',
-    '/photo', '/progress', '/wallcolor', '/floorplan', '/community',
-    '/badges', '/beforeafter', '/garden', '/seasonal', '/maintenance', '/carbon'
-  ];
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -231,26 +264,24 @@ function Dashboard() {
 
   const sendMessage = async () => {
     if (!input.trim()) return;
-    const userMessage = { role: 'user', content: input };
+    const userMessage    = { role: 'user', content: input };
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setInput('');
     setLoading(true);
 
-    const response = await fetch(
-      'https://api.groq.com/openai/v1/chat/completions',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.REACT_APP_GROQ_KEY}`
-        },
-        body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
-          messages: [
-            {
-              role: 'system',
-              content: `You are Nivaora Assistant — a helpful chatbot for the Nivaora home design app.
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.REACT_APP_GROQ_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          {
+            role: 'system',
+            content: `You are Nivaora Assistant — a helpful chatbot for the Nivaora home design app.
               Nivaora has these features:
               1. Plan My Home 2. Decor Ideas 3. Waste to Decor 4. Budget Planner
               5. Vastu Guide 6. Saved Designs 7. Wall Color Visualizer 8. Floor Plan
@@ -258,32 +289,35 @@ function Dashboard() {
               12. Garden Planner 13. Seasonal Home Guide 14. Maintenance Reminders
               15. Carbon Footprint Score
               Answer questions about these features or general home design. Be friendly and helpful.`
-            },
-            ...updatedMessages
-          ]
-        })
-      }
-    );
+          },
+          ...updatedMessages
+        ]
+      })
+    });
     const data = await response.json();
-    const assistantMessage = { role: 'assistant', content: data.choices[0].message.content };
-    setMessages([...updatedMessages, assistantMessage]);
+    setMessages([...updatedMessages, { role: 'assistant', content: data.choices[0].message.content }]);
     setLoading(false);
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') sendMessage();
-  };
+  const handleKeyPress = (e) => { if (e.key === 'Enter') sendMessage(); };
 
   const getStreakEmoji = (s) => {
     if (s >= 30) return '🏆';
     if (s >= 14) return '⚡';
-    if (s >= 7) return '🔥';
-    if (s >= 3) return '✨';
+    if (s >= 7)  return '🔥';
+    if (s >= 3)  return '✨';
     return '🌱';
   };
 
+  // ── Filtered features for grid (when searching) ─────────────
+  const displayFeatures = searchQuery.trim()
+    ? searchResults
+    : t.features.map((f, i) => ({ ...f, path: paths[i] }));
+
   return (
     <div className={`dashboard ${darkMode ? 'dark' : ''}`}>
+
+      {/* ── Header ── */}
       <div className="dashboard-header">
         <div>
           <h1>{t.welcome}, {userName}! 🏡</h1>
@@ -291,6 +325,50 @@ function Dashboard() {
         </div>
         <div className="header-btns">
           <Notifications />
+
+          {/* 🔍 Search Bar */}
+          <div className="search-wrapper" ref={searchRef}>
+            <div className={`search-box ${darkMode ? 'search-dark' : ''}`}>
+              <span className="search-icon">🔍</span>
+              <input
+                type="text"
+                className="search-input"
+                placeholder={t.searchPlaceholder}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearchKey}
+                onFocus={() => searchQuery && setShowDropdown(true)}
+              />
+              {searchQuery && (
+                <button className="search-clear" onClick={clearSearch}>✕</button>
+              )}
+            </div>
+
+            {showDropdown && (
+              <div className={`search-dropdown ${darkMode ? 'search-dropdown-dark' : ''}`}>
+                {searchResults.length > 0 ? (
+                  searchResults.map((f, i) => (
+                    <div
+                      key={f.path}
+                      className={`search-result-item ${i === activeIdx ? 'search-active' : ''}`}
+                      onClick={() => goToFeature(f.path)}
+                      onMouseEnter={() => setActiveIdx(i)}
+                    >
+                      <span className="result-icon">{f.icon}</span>
+                      <div className="result-text">
+                        <span className="result-name">{f.title}</span>
+                        <span className="result-desc">{f.desc}</span>
+                      </div>
+                      <span className="result-arrow">→</span>
+                    </div>
+                  ))
+                ) : (
+                  <div className="search-no-result">😕 {t.noResults} "{searchQuery}"</div>
+                )}
+              </div>
+            )}
+          </div>
+
           <button onClick={() => setDarkMode(!darkMode)} className="dark-btn">
             {darkMode ? t.light : t.dark}
           </button>
@@ -304,9 +382,8 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* Streak + Daily Tip Row */}
+      {/* ── Streak + Daily Tip Row ── */}
       <div className="dashboard-top-row">
-        {/* Streak */}
         {streak > 0 && (
           <div className={`streak-card ${darkMode ? 'dark-streak' : ''}`}>
             <div className="streak-emoji">{getStreakEmoji(streak)}</div>
@@ -322,7 +399,6 @@ function Dashboard() {
           </div>
         )}
 
-        {/* Daily Tip */}
         {dailyTip && (
           <div className={`daily-tip ${darkMode ? 'dark-tip' : ''}`}>
             <span className="tip-label">{t.tipTitle}</span>
@@ -331,16 +407,27 @@ function Dashboard() {
         )}
       </div>
 
+      {/* ── Features Grid ── */}
       <div className="features-grid">
-        {t.features.map((f, i) => (
-          <div key={i} className={`feature-card ${darkMode ? 'dark-card' : ''}`} onClick={() => navigate(paths[i])}>
+        {displayFeatures.map((f, i) => (
+          <div
+            key={f.path || i}
+            className={`feature-card ${darkMode ? 'dark-card' : ''}`}
+            onClick={() => navigate(f.path)}
+          >
             <span className="feature-icon">{f.icon}</span>
             <h3>{f.title}</h3>
             <p>{f.desc}</p>
           </div>
         ))}
+        {searchQuery.trim() && searchResults.length === 0 && (
+          <div style={{ gridColumn: '1/-1', textAlign: 'center', color: '#888', padding: '40px' }}>
+            😕 {t.noResults} "{searchQuery}"
+          </div>
+        )}
       </div>
 
+      {/* ── Chat Button ── */}
       <div className="chat-float-btn" onClick={() => setChatOpen(!chatOpen)}>
         <span>🧑‍💼</span>
       </div>
