@@ -139,6 +139,7 @@
   color: white;
 }
 
+/* FEATURES SECTION */
 .features-section {
   padding: 80px 40px;
   text-align: center;
@@ -157,6 +158,55 @@
   margin-bottom: 50px;
 }
 
+/* SIMPLE LIST STYLE */
+.features-list-simple {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.feature-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.feature-list-item:last-child {
+  border-bottom: none;
+}
+
+.feature-list-item:hover {
+  background: #f9f5f2;
+  border-radius: 12px;
+}
+
+.feature-list-icon {
+  font-size: 28px;
+  min-width: 40px;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.feature-list-content h3 {
+  color: #2d4a3e;
+  font-size: 16px;
+  margin: 0 0 4px 0;
+}
+
+.feature-list-content p {
+  color: #888;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Old card style kept for backward compat */
 .features-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -178,21 +228,11 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-.feature-item span {
-  font-size: 40px;
-}
+.feature-item span { font-size: 40px; }
+.feature-item h3 { color: #2d4a3e; margin: 15px 0 8px 0; }
+.feature-item p { color: #888; font-size: 14px; margin: 0; }
 
-.feature-item h3 {
-  color: #2d4a3e;
-  margin: 15px 0 8px 0;
-}
-
-.feature-item p {
-  color: #888;
-  font-size: 14px;
-  margin: 0;
-}
-
+/* ABOUT SECTION */
 .about-section {
   padding: 80px 40px;
   text-align: center;
@@ -238,84 +278,36 @@
   padding: 20px;
   font-size: 14px;
 }
-/* ===== MOBILE RESPONSIVE ===== */
+
+/* MOBILE */
 @media (max-width: 768px) {
-  .navbar {
-    padding: 12px 20px;
-  }
+  .navbar { padding: 12px 20px; }
+  .nav-links { display: none; }
+  .nav-logo { font-size: 18px; }
+  .nav-btns { gap: 6px; }
+  .nav-login, .nav-signup { padding: 6px 14px; font-size: 12px; }
 
-  .nav-links {
-    display: none;
-  }
+  .landing-content { padding: 120px 20px 60px 20px; }
+  .landing-content h1 { font-size: 36px; }
+  .tagline { font-size: 18px; }
+  .description { font-size: 15px; }
 
-  .nav-logo {
-    font-size: 18px;
-  }
-
-  .nav-btns {
-    gap: 6px;
-  }
-
-  .nav-login,
-  .nav-signup {
-    padding: 6px 14px;
-    font-size: 12px;
-  }
-
-  .landing-content {
-    padding: 120px 20px 60px 20px;
-  }
-
-  .landing-content h1 {
-    font-size: 36px;
-  }
-
-  .tagline {
-    font-size: 18px;
-  }
-
-  .description {
-    font-size: 15px;
-  }
-
-  .btn-primary,
-  .btn-secondary {
+  .btn-primary, .btn-secondary {
     padding: 12px 28px;
     font-size: 15px;
     margin: 6px;
   }
 
-  .features-section {
-    padding: 50px 20px;
-  }
+  .features-section { padding: 50px 20px; }
+  .features-section h2 { font-size: 28px; }
 
-  .features-section h2 {
-    font-size: 28px;
-  }
+  .feature-list-item { padding: 14px 10px; gap: 12px; }
+  .feature-list-icon { font-size: 22px; min-width: 32px; }
+  .feature-list-content h3 { font-size: 15px; }
+  .feature-list-content p { font-size: 13px; }
 
-  .features-list {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .feature-item {
-    padding: 20px;
-  }
-
-  .about-section {
-    padding: 50px 20px;
-  }
-
-  .about-section h2 {
-    font-size: 28px;
-  }
-
-  .about-stats {
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .stat h3 {
-    font-size: 36px;
-  }
+  .about-section { padding: 50px 20px; }
+  .about-section h2 { font-size: 28px; }
+  .about-stats { flex-direction: column; gap: 24px; }
+  .stat h3 { font-size: 36px; }
 }

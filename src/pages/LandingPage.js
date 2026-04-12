@@ -2,6 +2,29 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LandingPage.css';
 
+const ALL_FEATURES = [
+  { icon: '🏗️', name: 'Plan My Home', desc: 'Answer 8 questions and get AI powered home design suggestions tailored to your plot, city, and budget.' },
+  { icon: '🏠', name: 'Decor Ideas', desc: 'Get room by room decoration ideas with real images based on your preferred style — Modern, Traditional, Bohemian and more.' },
+  { icon: '♻️', name: 'Waste to Decor', desc: 'Turn your waste materials like old bottles, tyres, and wood into beautiful home decor with creative AI ideas.' },
+  { icon: '💰', name: 'Budget Planner', desc: 'Get a detailed budget breakdown for your entire home construction and decoration in Indian rupees.' },
+  { icon: '🕉️', name: 'Vastu Guide', desc: 'Get Vastu Shastra compliant tips for every room based on your house facing direction.' },
+  { icon: '❤️', name: 'Saved Designs', desc: 'Save your favorite home design ideas and access them anytime from your personal collection.' },
+  { icon: '📸', name: 'Photo Analyze', desc: 'Upload your room photo, select your preferred style, and get AI powered improvement suggestions.' },
+  { icon: '📊', name: 'Progress Tracker', desc: 'Track your home building or renovation journey stage by stage and mark tasks as complete.' },
+  { icon: '🎨', name: 'Wall Color Visualizer', desc: 'Pick colors from a palette and visualize how your walls would look before painting.' },
+  { icon: '🗺️', name: 'Floor Plan', desc: 'Draw your home layout on a canvas and plan room placements before construction.' },
+  { icon: '🌐', name: 'Community Feed', desc: 'Share your home transformations and get inspired by real Indian home designs from the community.' },
+  { icon: '🏆', name: 'Achievement Badges', desc: 'Earn badges as you explore different features — making your home design journey fun and rewarding.' },
+  { icon: '✨', name: 'Before & After Transformation', desc: 'Upload your room photo, choose a style, and get a complete AI transformation plan with cost estimates and product recommendations.' },
+  { icon: '🌿', name: 'Garden Planner', desc: 'Get a complete garden plan based on your city and season — with plant suggestions, flower recommendations, and Amazon shopping links.' },
+  { icon: '🗓️', name: 'Seasonal Home Guide', desc: 'Get home tips, decor ideas, and shopping lists for every Indian season and festival — including Diwali, Holi, and Monsoon.' },
+  { icon: '🔔', name: 'Maintenance Reminders', desc: 'Never forget important home maintenance tasks — add reminders, set due dates, and track what is done.' },
+  { icon: '🌱', name: 'Carbon Footprint Score', desc: 'Answer 5 questions about your home and get an eco-friendliness score out of 100 with specific improvements.' },
+  { icon: '🧑‍💼', name: 'AI Assistant', desc: 'Chat with our AI assistant anytime for help with home design questions, feature guidance, and tips.' },
+  { icon: '💡', name: 'Daily Tips', desc: 'Get a fresh home design tip every day on your dashboard to keep improving your living space.' },
+  { icon: '🔥', name: 'Streak Counter', desc: 'Build a daily login streak and track your longest streak — staying consistent with your home journey.' },
+];
+
 function LandingPage() {
   const navigate = useNavigate();
 
@@ -41,38 +64,18 @@ function LandingPage() {
 
       <div className="features-section" id="features">
         <h2>Our Features</h2>
-        <p>Everything you need for your dream home</p>
-        <div className="features-list">
-          <div className="feature-item">
-            <span>🏗️</span>
-            <h3>Plan My Home</h3>
-            <p>Answer 8 simple questions and get AI powered home design suggestions tailored to your needs.</p>
-          </div>
-          <div className="feature-item">
-            <span>🏠</span>
-            <h3>Decor Ideas</h3>
-            <p>Get room by room decoration ideas with real images based on your preferred style.</p>
-          </div>
-          <div className="feature-item">
-            <span>♻️</span>
-            <h3>Waste to Decor</h3>
-            <p>Turn your waste materials into beautiful home decor with creative AI ideas.</p>
-          </div>
-          <div className="feature-item">
-            <span>💰</span>
-            <h3>Budget Planner</h3>
-            <p>Get a detailed budget breakdown for your entire home construction and decoration.</p>
-          </div>
-          <div className="feature-item">
-            <span>🕉️</span>
-            <h3>Vastu Guide</h3>
-            <p>Get Vastu Shastra tips for every room based on your house facing direction.</p>
-          </div>
-          <div className="feature-item">
-            <span>🧑‍💼</span>
-            <h3>AI Assistant</h3>
-            <p>Chat with our AI assistant anytime for help with home design questions.</p>
-          </div>
+        <p>Everything you need for your dream home — 20+ AI powered features</p>
+
+        <div className="features-list-simple">
+          {ALL_FEATURES.map((f, i) => (
+            <div key={i} className="feature-list-item">
+              <div className="feature-list-icon">{f.icon}</div>
+              <div className="feature-list-content">
+                <h3>{f.name}</h3>
+                <p>{f.desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -86,7 +89,7 @@ function LandingPage() {
         </p>
         <div className="about-stats">
           <div className="stat">
-            <h3>6+</h3>
+            <h3>20+</h3>
             <p>AI Features</p>
           </div>
           <div className="stat">
@@ -97,6 +100,10 @@ function LandingPage() {
             <h3>🇮🇳</h3>
             <p>Made for India</p>
           </div>
+          <div className="stat">
+            <h3>3</h3>
+            <p>Languages</p>
+          </div>
         </div>
         <button onClick={() => navigate('/signup')} className="btn-primary">
           Start Your Journey
@@ -104,7 +111,7 @@ function LandingPage() {
       </div>
 
       <div className="footer">
-        <p>© 2024 Nivaora — From land to living 🏡</p>
+        <p>© 2025 Nivaora — From land to living 🏡</p>
       </div>
     </div>
   );
